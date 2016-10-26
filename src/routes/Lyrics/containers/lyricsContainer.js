@@ -1,21 +1,38 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-const Realm = require('realm');
+import realm from '../../../db/schema'
+import song from '../../../db/seed'
 import { increment, doubleAsync } from '../modules/lyricsReducer'
 import Lyrics from '../../../components/Lyrics/lyrics'
 
 
 class LyricsContainer extends Component {
-  render() {
-    let realm = new Realm({
-      schema: [{ name: 'Dog', properties: { name: 'string' } }]
-    });
+  constructor(props) {
+    super(props);
+    this.song = realm.objects('Song');
+  }
 
+
+  persistToDatabase(data) {
+    // if (this.song.length < 1) {
     realm.write(() => {
-      realm.create('Dog', { name: 'Rex' });
+      data.forEach(currentItem => {
+        console.log('writing..', currentItem);
+        realm.create('Song', currentItem);
+      });
+      // realm.create('Song', data);
     });
+    // }
+  }
 
+  componentWillMount() {
+    this.persistToDatabase(song);
+  }
+
+  render() {
+    console.log('data from render', realm.objects('Song'));
+    console.log(realm.path);
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -104,11 +121,18 @@ class LyricsContainer extends Component {
             </Text>
           </View>
         </View>
+        <View>
+          <Text style={styles.welcome}>
+            Count of Songs in Realm: {realm.objects('Song').length}
+          </Text>
+        </View>
+
       </ScrollView >
     );
   }
 }
-
+// Count of Dogs in Realm: {realm.objects('Dog').length}
+// Count of Songs in Realm: {realmSong.objects('Song').length}
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 15

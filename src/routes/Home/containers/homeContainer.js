@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image, StyleSheet, ListView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-
+const Realm = require('realm');
 
 
 class Home extends Component {
@@ -19,6 +19,14 @@ class Home extends Component {
   }
 
   render() {
+    // let realm = new Realm({
+    //   schema: [{ name: 'Dog', properties: { name: 'string' } }]
+    // });
+
+    // realm.write(() => {
+    //   realm.create('Dog', { name: 'Rex' });
+    // });
+
     return (
       <View>
         <ListView style={styles.listContainer}
