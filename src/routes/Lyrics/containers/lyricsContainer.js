@@ -10,10 +10,19 @@ import Lyrics from '../../../components/Lyrics/lyrics'
 class LyricsContainer extends Component {
   constructor(props) {
     super(props);
+    this.offset = 0;
     this.song = realm.objects('Song');
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
-
+  handleScroll(event) {
+    console.log('handleScroll...', event);
+    let currentOffset = event.nativeEvent.contentOffset.y;
+    console.log(this.offset, currentOffset);
+    let direction = currentOffset > this.offset ? 'down' : 'up';
+    this.offset = currentOffset;
+    console.log(direction, currentOffset);
+  }
   persistToDatabase(data) {
     // if (this.song.length < 1) {
     realm.write(() => {
@@ -34,7 +43,9 @@ class LyricsContainer extends Component {
     console.log('data from render', realm.objects('Song'));
     console.log(realm.path);
     return (
-      <ScrollView>
+      <ScrollView onScroll={this.handleScroll}>
+        {/*Rest of App come ABOVE the action button component!*/}
+
         <View style={styles.container}>
           <View style={styles.para}>
             <Text style={styles.text}>
@@ -143,6 +154,11 @@ const styles = StyleSheet.create({
   },
   para: {
     paddingTop: 20
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
   }
 });
 

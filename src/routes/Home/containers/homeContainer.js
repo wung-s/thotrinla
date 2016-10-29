@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image, StyleSheet, ListView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-const Realm = require('realm');
 
+import realm from '../../../db/schema'
+// import song from '../../../db/seed'
 
 class Home extends Component {
   constructor(props) {
     super(props);
+
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.allSongs = [{ number: 1, title: 'First Song' }, { number: 2, title: 'Second Song' }, { number: 3, title: 'Third Song' }]
+    // this.songInDB = [{ key: 1, title: 'First Song' }, { key: 2, title: 'Second Song' }, { key: 3, title: 'Third Song' }]
+    this.songInDB = realm.objects('Song');
     this.state = {
-      dataSource: ds.cloneWithRows(this.allSongs)
+      dataSource: ds.cloneWithRows(this.songInDB)
     };
   }
 
@@ -18,43 +21,52 @@ class Home extends Component {
     Actions.lyrics();
   }
 
-  render() {
-    // let realm = new Realm({
-    //   schema: [{ name: 'Dog', properties: { name: 'string' } }]
-    // });
+  componentWillMount() {
+    // console.log('song count: ', this.songInDB.length);
+    // console.log(song);
+    if (this.songInDB.length <= 0) {
+      var song = require('../../../db/seed')
+      console.log('songs are: ....', song);
+      this.persistToDatabase(song);
+    }
+    console.log('first song chorus: ', this.songInDB[0].chorus);
+  }
 
-    // realm.write(() => {
-    //   realm.create('Dog', { name: 'Rex' });
-    // });
+  persistToDatabase(data) {
+    realm.write(() => {
+      data.forEach(currentSong => {
+        console.log('writing..', currentSong);
+        realm.create('Song', currentSong);
+      });
+    });
+  }
+
+  render() {
+
 
     return (
-      <View>
+      <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
         <ListView style={styles.listContainer}
           dataSource={this.state.dataSource}
           renderRow={(rowData) => (
             <View>
               <TouchableOpacity style={styles.list} onPress={() => this.onPress()}>
-                <Text style={styles.text}>{rowData.number} {rowData.title}</Text>
+                <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
               </TouchableOpacity>
             </View>
           )}
           />
       </View>
+
     )
   }
 }
 
-// <View style={styles.container}>
-//         <View style={{ height: 50, backgroundColor: 'powderblue' }} />
-//         <View style={{ width: 50, height: 50, backgroundColor: 'skyblue' }} />
-//         <View style={{ width: 50, height: 50, backgroundColor: 'steelblue' }} />
-//       </View>
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9DC5BB',
   },
@@ -69,6 +81,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16
+  }, actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
   }
   // title: {
   //   fontSize: 20,
