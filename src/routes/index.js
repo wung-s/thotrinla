@@ -4,5 +4,5 @@ import Lyrics from './Lyrics'
 
 export default {
 	indexRoute: Home,
-	childRoutes: [Counter, Lyrics]
+	childRoutes: [Lyrics]
 }

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#9DC5BB',
   },
   list: {
-    backgroundColor: '#17B890',
+    backgroundColor: '#A5C4D4',
     borderStyle: 'dashed',
     borderWidth: 1,
     height: 60,

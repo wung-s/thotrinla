@@ -8,8 +8,8 @@ const getSceneStyle = () => ({
   shadowColor: 'black',
   shadowOffset: { width: 2, height: 4 },
   shadowOpacity: 0.7,
-  shadowRadius: 5,
-  paddingTop: 55
+  shadowRadius: 5
+  // paddingTop: 55
 })
 
 export default (): Element => (
