@@ -55,7 +55,9 @@ const styles = StyleSheet.create({
     minHeight: 55,
     borderColor: 'rgb(213, 213, 213)',
     borderTopWidth: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
+
   },
   homeImage: {
     width: 300,

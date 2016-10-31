@@ -15,7 +15,8 @@ const createScenes = () => {
 		return <Scene
 			key={route.path}
 			component={route.component}
-			title={route.title} />
+			title={route.title}
+			sceneStyle={styles.sceneStyle} />
 	});
 }
 
@@ -24,9 +25,12 @@ const navigationBarStyle = {
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
-		alignItems: 'center',
+	// container: {
+	// 	flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
+	// 	alignItems: 'center',
+	// },
+	sceneStyle: {
+		paddingTop: 55
 	},
 	tabBarStyle: {
 		backgroundColor: '#BBC8CA',
@@ -68,6 +72,7 @@ const scenes = Actions.create(
 							key={Routes.indexRoute.path}
 							component={Routes.indexRoute.component}
 							title={Routes.indexRoute.title}
+							sceneStyle={{ borderWidth: 1, borderStyle: 'solid', paddingTop: 55 }}
 							/>
 						{createScenes()}
 					</Scene>
