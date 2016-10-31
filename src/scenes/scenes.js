@@ -8,6 +8,7 @@ import TabView from '../components/TabView'
 import TabIcon from '../components/TabIcon'
 
 import About from '../components/About/about'
+import SearchContainer from '../routes/Search/containers/searchContainer'
 
 console.log("Routes", Routes);
 
@@ -60,6 +61,8 @@ const scenes = Actions.create(
 					icon={TabIcon}
 					navigationBarStyle={{ backgroundColor: '#FF715B' }}
 					titleStyle={{ color: 'white' }}
+					onRight={() => Actions.searchModal() }
+					rightTitle='NumPad'
 					initial
 					>
 					<Scene
@@ -69,10 +72,16 @@ const scenes = Actions.create(
 						/>
 					{createScenes()}
 				</Scene>
-				<Scene key="search" component={TabView} title="Search" icon={TabIcon} />
 				<Scene key="about" component={About} title="About" icon={TabIcon} />
 			</Scene>
 		</Scene>
+		<Scene
+			key="searchModal"
+			direction="vertical"
+			component={SearchContainer}
+			title="Search"
+			icon={TabIcon}
+			hideNavBar />
 	</Scene>
 )
 

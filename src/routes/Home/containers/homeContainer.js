@@ -8,7 +8,7 @@ import realm from '../../../db/schema'
 class Home extends Component {
   constructor(props) {
     super(props);
-
+    console.log('constructor...');
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     // this.songInDB = [{ key: 1, title: 'First Song' }, { key: 2, title: 'Second Song' }, { key: 3, title: 'Third Song' }]
     this.songInDB = realm.objects('Song');
@@ -18,10 +18,13 @@ class Home extends Component {
   }
 
   onPress() {
+    console.log('onPress....');
     Actions.lyrics();
+    // Actions.searchModal();
   }
 
   componentWillMount() {
+    console.log('will Mount..');
     // console.log('song count: ', this.songInDB.length);
     // console.log(song);
     if (this.songInDB.length <= 0) {
@@ -56,6 +59,7 @@ class Home extends Component {
             </View>
           )}
           />
+
       </View>
 
     )
