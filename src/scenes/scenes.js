@@ -54,6 +54,7 @@ const scenes = Actions.create(
 				tabs
 				tabBarStyle={styles.tabBarStyle}
 				tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
+				hideTabBar
 				>
 				<Scene
 					key="tab1"
@@ -72,7 +73,7 @@ const scenes = Actions.create(
 						/>
 					{createScenes()}
 				</Scene>
-				<Scene key="about" component={About} title="About" icon={TabIcon} />
+				<Scene key="about" component={About} title="About" icon={TabIcon}/>
 			</Scene>
 		</Scene>
 		<Scene
