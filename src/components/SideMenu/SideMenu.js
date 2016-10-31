@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native'
-import { Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 
-const SideMenu = (props) => {
-  // const { value, increment, doubleAsync } = props;
+
+const SideMenu = (props, context) => {
+  console.log(props, context, Actions);
+  const drawer = context.drawer;
   return (
     <ScrollView>
       <View >
@@ -14,43 +16,35 @@ const SideMenu = (props) => {
           Home
         </Text>
       </View>
-      <View style={styles.item}>
+      <TouchableOpacity style={styles.item} onPress={() => { console.log('preface', drawer); Actions.preface() } }>
         <Text style={styles.text}>
           Preface
         </Text>
-      </View>
-      <View style={styles.item}>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.item} onPress={() => { console.log('about', drawer); Actions.about() } }>
         <Text style={styles.text}>
           About
         </Text>
-      </View>
+      </TouchableOpacity>
 
     </ScrollView>
   )
 }
 
+const contextTypes = {
+  drawer: React.PropTypes.object
+};
+
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: 'white',
-  // },
   text: {
     fontSize: 20,
     textAlign: 'center',
     color: 'white'
   },
   item: {
-    // paddingLeft: 10,
-    // paddingRight: 4,
-    // paddingVertical: 20,
-    // paddingVertical: 5,
     backgroundColor: '#747274',
     minHeight: 55,
-    // borderWidth: 1,
     borderColor: 'rgb(213, 213, 213)',
-    // margin: 10,
     borderTopWidth: 1,
     alignItems: 'center'
   },

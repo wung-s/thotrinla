@@ -35,6 +35,6 @@ class NavigationDrawer extends React.Component {
   }
 }
 
-// NavigationDrawer.propTypes = propTypes;
+NavigationDrawer.propTypes = propTypes;
 
 export default NavigationDrawer;

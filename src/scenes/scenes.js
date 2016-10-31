@@ -1,13 +1,12 @@
 import React from 'react'
 import { Text, StyleSheet } from 'react-native'
-import { Actions, Scene } from 'react-native-router-flux'
+import { Actions, Scene, Modal } from 'react-native-router-flux'
 import Routes from '../routes/index'
 
 import NavigationDrawer from '../components/NavigationDrawer/NavigationDrawer'
 import TabView from '../components/TabView'
 import TabIcon from '../components/TabIcon'
 
-import About from '../components/About/about'
 import SearchContainer from '../routes/Search/containers/searchContainer'
 
 console.log("Routes", Routes);
@@ -43,46 +42,47 @@ const styles = StyleSheet.create({
 });
 
 const scenes = Actions.create(
-	<Scene key="app" navigationBarStyle={navigationBarStyle}>
-		<Scene
-			key="tabbar"
-			component={NavigationDrawer}
-			title="Thotrin La"
-			>
+	<Scene key="modal" component={Modal} >
+		<Scene key="app" navigationBarStyle={navigationBarStyle}>
 			<Scene
-				key="main"
-				tabs
-				tabBarStyle={styles.tabBarStyle}
-				tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
-				hideTabBar
+				key="tabbar"
+				component={NavigationDrawer}
+				title="Thotrin La"
 				>
 				<Scene
-					key="tab1"
-					title="Home"
-					icon={TabIcon}
-					navigationBarStyle={{ backgroundColor: '#FF715B' }}
-					titleStyle={{ color: 'white' }}
-					onRight={() => Actions.searchModal() }
-					rightTitle='NumPad'
-					initial
+					key="main"
+					tabs
+					tabBarStyle={styles.tabBarStyle}
+					tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
+					hideTabBar
 					>
 					<Scene
-						key={Routes.indexRoute.path}
-						component={Routes.indexRoute.component}
-						title={Routes.indexRoute.title}
-						/>
-					{createScenes()}
+						key="tab1"
+						title="Home"
+						icon={TabIcon}
+						navigationBarStyle={{ backgroundColor: '#FF715B' }}
+						titleStyle={{ color: 'white' }}
+						onRight={() => Actions.searchModal()}
+						rightTitle='NumPad'
+						initial
+						>
+						<Scene
+							key={Routes.indexRoute.path}
+							component={Routes.indexRoute.component}
+							title={Routes.indexRoute.title}
+							/>
+						{createScenes()}
+					</Scene>
 				</Scene>
-				<Scene key="about" component={About} title="About" icon={TabIcon}/>
 			</Scene>
+			<Scene
+				key="searchModal"
+				direction="vertical"
+				component={SearchContainer}
+				title="Search"
+				icon={TabIcon}
+				hideNavBar />
 		</Scene>
-		<Scene
-			key="searchModal"
-			direction="vertical"
-			component={SearchContainer}
-			title="Search"
-			icon={TabIcon}
-			hideNavBar />
 	</Scene>
 )
 

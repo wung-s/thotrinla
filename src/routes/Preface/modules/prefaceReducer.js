@@ -1,9 +1,8 @@
-const INCREMENT = 'INCREMENT'
 const initialState = 0
 
-export default function lyrics(state = initialState, action) {
+export default function counter(state = initialState, action) {
   switch (action.type) {
-    case INCREMENT:
+    case 'INCREMENT':
       return state + action.value
     default:
       return state
