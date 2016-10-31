@@ -57,11 +57,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     alignItems: 'center'
   },
-  buttonText: {
-    fontSize: 15,
-    textAlign: 'center',
-    margin: 10,
-  },
   homeImage: {
     width: 300,
     height: 150

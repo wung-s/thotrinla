@@ -4,6 +4,7 @@ import scenes from './scenes'
 
 const getSceneStyle = () => ({
   flex: 1,
+  // backgroundColor: 'rgba(11, 1, 24, 0.12)',
   backgroundColor: '#fff',
   shadowColor: 'black',
   shadowOffset: { width: 2, height: 4 },

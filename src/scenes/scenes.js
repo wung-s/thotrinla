@@ -9,8 +9,6 @@ import TabIcon from '../components/TabIcon'
 
 import SearchContainer from '../routes/Search/containers/searchContainer'
 
-console.log("Routes", Routes);
-
 const createScenes = () => {
 	return Routes.childRoutes.map((route) => {
 		console.log(route);
