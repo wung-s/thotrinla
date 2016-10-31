@@ -2,18 +2,19 @@ import React, { PropTypes } from 'react';
 import Drawer from 'react-native-drawer';
 import { DefaultRenderer, Actions } from 'react-native-router-flux';
 
-// import TabView from '../TabView';
 import SideMenu from '../SideMenu/SideMenu';
 
 const propTypes = {
   navigationState: PropTypes.object,
+  onNavigate: PropTypes.func
 };
 
 class NavigationDrawer extends React.Component {
   render() {
     const state = this.props.navigationState;
+    // console.log(this.props);
     const children = state.children;
-    console.log('state..', state);
+    // console.log('state..', state);
     return (
       <Drawer
         ref="navigation"
