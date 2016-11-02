@@ -1,52 +1,115 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
+const styles = StyleSheet.create({
+  container: {
+    paddingLeft: 15
+  },
+  text: {
+    fontSize: 20,
+    textAlign: 'left'
+  },
+  para: {
+    paddingTop: 20
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  }
+})
+
 const Lyrics = (props) => {
-  const { value, increment, doubleAsync } = props;
+  // const { value, increment, doubleAsync } = props;
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        Lyrics here .....
-      </Text>
+      <View style={styles.para}>
+        <Text style={styles.text}>
+          1 Ringkapha tuina, Jesu Iwui
+            </Text>
+        <Text style={styles.text}>
+          Varewui leikashi sachitheihao
+            </Text>
+        <Text style={styles.text}>
+          Morei pheomida ili huimi
+            </Text>
+        <Text style={styles.text}>
+          Chonmeili mida ili thanmi
+            </Text>
+      </View>
+      <View style={styles.para}>
+        <Text style={styles.text}>
+          2 Ringkapha tuina, Jesu Iwui
+            </Text>
+        <Text style={styles.text}>
+          Varewui leikashi sachitheihao
+            </Text>
+        <Text style={styles.text}>
+          Morei pheomida ili huimi
+            </Text>
+        <Text style={styles.text}>
+          Chonmeili mida ili thanmi
+            </Text>
+      </View>
+      <View style={styles.para}>
+        <Text style={styles.text}>
+          3 Ringkapha tuina, Jesu Iwui
+            </Text>
+        <Text style={styles.text}>
+          Varewui leikashi sachitheihao
+            </Text>
+        <Text style={styles.text}>
+          Morei pheomida ili huimi
+            </Text>
+        <Text style={styles.text}>
+          Chonmeili mida ili thanmi
+            </Text>
+      </View>
+      <View style={styles.para}>
+        <Text style={styles.text}>
+          4 Ringkapha tuina, Jesu Iwui
+            </Text>
+        <Text style={styles.text}>
+          Varewui leikashi sachitheihao
+            </Text>
+        <Text style={styles.text}>
+          Morei pheomida ili huimi
+            </Text>
+        <Text style={styles.text}>
+          Chonmeili mida ili thanmi
+            </Text>
+      </View>
+      <View style={styles.para}>
+        <Text style={styles.text}>
+          5 Ringkapha tuina, Jesu Iwui
+            </Text>
+        <Text style={styles.text}>
+          Varewui leikashi sachitheihao
+            </Text>
+        <Text style={styles.text}>
+          Morei pheomida ili huimi
+            </Text>
+        <Text style={styles.text}>
+          Chonmeili mida ili thanmi
+            </Text>
+      </View>
+      <View style={styles.para}>
+        <Text style={styles.text}>
+          6 Ringkapha tuina, Jesu Iwui
+            </Text>
+        <Text style={styles.text}>
+          Varewui leikashi sachitheihao
+            </Text>
+        <Text style={styles.text}>
+          Morei pheomida ili huimi
+            </Text>
+        <Text style={styles.text}>
+          Chonmeili mida ili thanmi
+            </Text>
+      </View>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  text: {
-    fontSize: 30,
-    textAlign: 'center',
-    margin: 20,
-  },
-  containerCounter: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  value: {
-    width: 40,
-    fontWeight: 'bold',
-    color: 'limegreen',
-    textAlign: 'center',
-  },
-  button: {
-    paddingLeft: 4,
-    paddingRight: 4,
-    backgroundColor: 'rgb(233, 233, 233)',
-    borderWidth: 1,
-    borderColor: 'rgb(213, 213, 213)',
-    margin: 10,
-  },
-  buttonText: {
-    fontSize: 15,
-    textAlign: 'center',
-    margin: 10,
-  },
-})
 
 export default Lyrics

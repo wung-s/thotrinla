@@ -13,11 +13,13 @@ class Home extends Component {
     this.state = {
       dataSource: ds.cloneWithRows(this.songInDB)
     };
+    this.showLyrics = this.showLyrics.bind(this);
   }
 
-  onPress() {
-    console.log('onPress....');
-    Actions.lyrics();
+  showLyrics(lyrics) {
+    console.log('onPress....', lyrics);
+    Actions.lyrics({ lyrics: lyrics });
+
     // Actions.searchModal();
   }
 
@@ -48,7 +50,7 @@ class Home extends Component {
         dataSource={this.state.dataSource}
         renderRow={(rowData) => (
           <View style={styles.listItem}>
-            <TouchableOpacity style={styles.list} onPress={() => this.onPress()}>
+            <TouchableOpacity style={styles.list} onPress={this.showLyrics.bind(null, rowData)}>
               <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
             </TouchableOpacity>
           </View>

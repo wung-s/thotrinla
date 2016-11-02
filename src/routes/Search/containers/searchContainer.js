@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Animated, Dimensions } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import NumberPad from '../../../components/NumberPad/NumberPad'
+
+var {
+  height: deviceHeight
+} = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -15,6 +19,10 @@ const styles = StyleSheet.create({
     // backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderColor: 'black',
     borderWidth: 2,
+    // backgroundColor:"transparent",
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "rgba(52,52,52,0.5)"
 
   }
 });
@@ -29,8 +37,17 @@ class Search extends Component {
     this.handleNumPadTab = this.handleNumPadTab.bind(this);
     this.handleClearAll = this.handleClearAll.bind(this);
   }
+
   handleSongSearch() {
-    console.log('handleSongSearch....')
+    console.log('handleSongSearch....', this.state);
+    // Actions.lyrics({ key: this.state.searchKey });
+    let searchKey = this.state.searchKey;
+    Actions.dismiss();
+
+    // Actions.lyrics({ lyrics: searchKey });
+    // Actions.pop();
+    // Actions.lyrics();
+
   }
   handleNumPadTab(value) {
     // console.log(value);
@@ -52,7 +69,7 @@ class Search extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} >
         <NumberPad
           searchKey={this.state.searchKey}
           onNumPadTab={this.handleNumPadTab}
