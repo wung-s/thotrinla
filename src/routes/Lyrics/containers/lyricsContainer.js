@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import realm from '../../../db/schema'
@@ -13,8 +13,6 @@ import ActionButton from 'react-native-action-button'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Modal from 'react-native-modalbox'
 // import Button from 'react-native-button'
-// var Modal = require('react-native-modalbox');
-// var Button = require('react-native-button');
 
 const SCROLLUP = 'up';
 const SCROLLDOWN = 'down';
@@ -130,7 +128,7 @@ class LyricsContainer extends Component {
   }
 
   handleAddFavourite() {
-    console.log('add to Favourite...');
+    // console.log('add to Favourite...');
   }
 
   handleScroll(event) {
@@ -142,19 +140,9 @@ class LyricsContainer extends Component {
     this.setState({
       scrollDirection: direction
     })
-    // console.log(direction, currentOffset);
   }
-  // persistToDatabase(data) {
-  //   realm.write(() => {
-  //     data.forEach(currentItem => {
-  //       console.log('writing..', currentItem);
-  //       realm.create('Song', currentItem);
-  //     });
-  //   });
-  // }
 
   componentWillMount() {
-    // this.persistToDatabase(song);
     console.log('props..', this.props)
     // console.log(selection);
   }
@@ -187,7 +175,7 @@ class LyricsContainer extends Component {
     return (
       <View style={styles.container}>
         <ScrollView onScroll={this.handleScroll}>
-          <Lyrics />
+          <Lyrics {...this.props} />
         </ScrollView >
         {this.getActionButton()}
         <Modal isOpen={this.state.isOpen} onClosed={this.closeModal5} style={[styles.modal, styles.modal4]} position={"center"} >
@@ -201,6 +189,10 @@ class LyricsContainer extends Component {
       </View>
     );
   }
+}
+
+LyricsContainer.propTypes = {
+  lyrics: PropTypes.object.isRequired
 }
 
 const mapActionCreators = {

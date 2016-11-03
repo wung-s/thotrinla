@@ -16,6 +16,7 @@ class Home extends Component {
   }
 
   showLyrics(lyrics) {
+    console.log(typeof lyrics)
     Actions.lyrics({ lyrics: lyrics });
 
     // Actions.searchModal();

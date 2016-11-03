@@ -13,7 +13,7 @@ Song.schema = {
     fourthStanza: { type: 'string', default: '' },
     fifthStanza: { type: 'string', default: '' },
     sixthStanza: { type: 'string', default: '' },
-    chorus: { type: 'string', default: '' },
+    chorus: { type: 'string', default: '' }
   }
 };
 class Animal extends Realm.Object { }
@@ -24,26 +24,4 @@ Animal.schema = {
   }
 }
 
-// export default Song;
 export default new Realm({ schema: [Song, Animal] });
-
-
-// let realm = new Realm({
-    //   schema: [{ name: 'Song11', properties: {
-        // key: 'number',
-        // stanzaCnt: 'number',
-        // firstStanza: 'string',
-        // secondStanza: 'string',
-        // thirdStanza: 'string',
-        // fourthStanza: 'string',
-        // chorus: 'string',
-
-    //   } }]
-    // });
-
-    // data.forEach(currentSong => {
-    //   // this.writeToDatabase(currentItem, realm);
-    //   realm.write(() => {
-    //     realm.create('Song', { ...currentSong });
-    //   });
-    // });
