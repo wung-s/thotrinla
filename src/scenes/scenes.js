@@ -11,7 +11,7 @@ import SearchContainer from '../routes/Search/containers/searchContainer'
 
 const createScenes = () => {
 	return Routes.childRoutes.map((route) => {
-		console.log(route);
+		// console.log(route);
 		return <Scene
 			key={route.path}
 			component={route.component}

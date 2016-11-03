@@ -13,7 +13,6 @@ const propTypes = {
 };
 
 const SideMenu = (props, context) => {
-  console.log(props, context, Actions);
   const drawer = context.drawer;
 
   return (

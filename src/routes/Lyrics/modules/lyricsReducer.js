@@ -17,7 +17,7 @@ const initialState = {
 }
 
 export const selection = (value = initialState) => {
-  console.log('selection...', value);
+  // console.log('selection...', value);
   return {
     type: SONG_SELECTION,
     value: value
@@ -25,7 +25,7 @@ export const selection = (value = initialState) => {
 }
 
 export default function lyrics(state = initialState, action) {
-  console.log('lyrics...', action, state);
+  // console.log('lyrics...', action, state);
   switch (action.type) {
     case SONG_SELECTION:
       return Object.assign({}, state)

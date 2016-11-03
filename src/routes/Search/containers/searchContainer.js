@@ -39,7 +39,7 @@ class Search extends Component {
   }
 
   handleSongSearch() {
-    console.log('handleSongSearch....', this.state);
+    // console.log('handleSongSearch....', this.state);
     // Actions.lyrics({ key: this.state.searchKey });
     let searchKey = this.state.searchKey;
     Actions.dismiss();

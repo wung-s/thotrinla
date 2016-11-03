@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 class AboutContainer extends Component {
   constructor(props) {
     super(props);
-    console.log('Preface constructor....');
+    // console.log('About constructor....');
 
   }
 

@@ -12,9 +12,7 @@ const propTypes = {
 class NavigationDrawer extends React.Component {
   render() {
     const state = this.props.navigationState;
-    // console.log(this.props);
     const children = state.children;
-    // console.log('state..', state);
     return (
       <Drawer
         ref="navigation"
