@@ -3,25 +3,30 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   numPadWrapper: {
-    backgroundColor: '#FF8200',
+    backgroundColor: 'white',
     padding: 20,
-    borderWidth: 2,
-    borderColor: '#FF8200'
+    // borderWidth: 2,
+    // borderColor: 'black'
   },
   numPadRow: {
     flexDirection: 'row',
     borderColor: 'transparent',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottomWidth: 5
+    // alignItems: 'center'
+    // borderBottomWidth: 5
   },
   numPadElem: {
     width: 80,
     height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'powderblue'
   },
   numText: {
     color: 'white', fontSize: 40
+  },
+  text: {
+    color: 'white', fontSize: 22
   },
   welcome: {
     fontSize: 20,
@@ -45,8 +50,8 @@ const NumberPad = (props) => {
     <View style={styles.numPadWrapper}>
       <View style={{ flexDirection: 'row' }}>
         <Text style={{ flex: 2, fontSize: 40 }}>{searchKey} </Text>
-        <TouchableOpacity style={{ flex: 1, backgroundColor: '#1A281F' }} onPress={onClearAll}>
-          <Text style={{ color: 'white', fontSize: 40 }}> Clear </Text>
+        <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'steelblue' }} onPress={onClearAll}>
+          <Text style={styles.text}> Clear </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.numPadRow}>

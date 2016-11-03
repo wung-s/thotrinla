@@ -64,8 +64,8 @@ const scenes = Actions.create(
 						icon={TabIcon}
 						navigationBarStyle={{ backgroundColor: '#FF715B' }}
 						titleStyle={{ color: 'white' }}
-						onRight={() => Actions.searchModal()}
-						rightTitle='NumPad'
+						// onRight={() => Actions.searchModal()}
+						// rightTitle='NumPad'
 						initial
 						>
 						<Scene

@@ -9,7 +9,8 @@ import Lyrics from '../../../components/Lyrics/lyrics'
 import NumberPad from '../../../components/NumberPad/NumberPad'
 
 import ActionButton from 'react-native-action-button'
-import Icon from 'react-native-vector-icons/Ionicons'
+// import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import Modal from 'react-native-modalbox'
 // import Button from 'react-native-button'
 // var Modal = require('react-native-modalbox');
@@ -47,7 +48,8 @@ const styles = StyleSheet.create({
   },
 
   modal4: {
-    height: 300
+    // height: 300
+    backgroundColor: "transparent"
   },
 
   btn: {
@@ -95,9 +97,11 @@ class LyricsContainer extends Component {
 
   handleOpenNumPad(id) {
     this.setState({
-      isOpen: true
+      isOpen: true,
+      searchKey: ''
     });
   }
+
 
   handleCloseNumPad() {
     this.setState({
@@ -164,14 +168,15 @@ class LyricsContainer extends Component {
       return (
         <ActionButton buttonColor="rgba(231,76,60,1)">
           <ActionButton.Item buttonColor='#9b59b6' title="Number Pad" onPress={this.handleOpenNumPad}>
-            <Icon name="md-create" style={styles.actionButtonIcon} />
+            <Icon name="dialpad" style={styles.actionButtonIcon} />
           </ActionButton.Item>
           <ActionButton.Item buttonColor='#3498db' title="Favourite" onPress={this.handleAddFavourite}>
-            <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
+            <Icon name="favorite-border" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => { } }>
+          {/*<ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => { } }>
             <Icon name="md-done-all" style={styles.actionButtonIcon} />
           </ActionButton.Item>
+          */}
         </ActionButton>
       )
     } else
