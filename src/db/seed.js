@@ -11,7 +11,7 @@ var song = [{
   key: 219,
   title: 'Take My Life And Let It Be',
   stanzaCnt: 5,
-  firstStanza: '291Iwui mirin hi Proho\nNawui pangli horsangli\nIwui pangla chikatli;\nLeishat otsakmang saga.\nNana singmilu Proho',
+  firstStanza: '219Iwui mirin hi Proho\nNawui pangli horsangli\nIwui pangla chikatli;\nLeishat otsakmang saga.\nNana singmilu Proho',
   secondStanza: 'Iwui phei Nawui sada\nNana kashivat pamli\nNgavengmei zatthei khavai\nProho ili katomlu.\nOt chi sakupshap khavai',
   thirdStanza: 'Iwui khak, male, morchai\nPaokapha chipemmilu.\nNawui leikat tui hangga\nNawui ot savairanu',
   fourthStanza: 'Iwui ningla chikatli\nMashunmang machukranu.\nIningli Na pammida:\nIwui mirin shongzali,\nProho, Nana thanmilu',

@@ -15,9 +15,10 @@ class Home extends Component {
     this.showLyrics = this.showLyrics.bind(this);
   }
 
-  showLyrics(lyrics) {
-    console.log(typeof lyrics)
-    Actions.lyrics({ lyrics: lyrics });
+  showLyrics(selectedSong) {
+    // console.log(typeof lyrics)
+    // Actions.lyrics({ lyrics: lyrics });
+    Actions.lyrics({ songNo: selectedSong.key})
 
     // Actions.searchModal();
   }
@@ -27,7 +28,7 @@ class Home extends Component {
     // console.log(song);
     if (this.songInDB.length <= 0) {
       var song = require('../../../db/seed')
-      console.log('songs are: ....', song);
+      // console.log('songs are: ....', song);
       this.persistToDatabase(song);
     }
     // console.log('first song chorus: ', this.songInDB[0].chorus);
@@ -43,16 +44,18 @@ class Home extends Component {
 
   render() {
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) => (
-          <View style={styles.listItem}>
-            <TouchableOpacity style={styles.list} onPress={this.showLyrics.bind(null, rowData)}>
-              <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+      <View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData) => (
+            <View style={styles.listItem}>
+              <TouchableOpacity style={styles.list} onPress={this.showLyrics.bind(null, rowData)}>
+                <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         />
+      </View>
     )
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
+import { Actions } from 'react-native-router-flux'
 import realm from '../../../db/schema'
 import song from '../../../db/seed'
 import { selection } from '../modules/lyricsReducer'
@@ -69,6 +70,11 @@ const styles = StyleSheet.create({
   text: {
     color: "black",
     fontSize: 22
+  },
+  centering: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
   }
 });
 
@@ -76,13 +82,18 @@ const styles = StyleSheet.create({
 class LyricsContainer extends Component {
   constructor(props) {
     super(props);
+    // console.log(props);
     this.offset = 0;
-    this.song = realm.objects('Song');
+    this.songDbRef = realm.objects('Song');
     this.state = {
       isOpen: false,
       searchKey: '',
-      scrollDirection: SCROLLUP
+      scrollDirection: SCROLLUP,
+      isLoading: false,
+      song: []
     }
+    this.songNo = props.songNo;
+    // console.log(this.songDbRef.filtered('key == "371"').length);
     // this.state = { searchKey: '' };
     this.handleScroll = this.handleScroll.bind(this);
     this.handleOpenNumPad = this.handleOpenNumPad.bind(this);
@@ -91,6 +102,8 @@ class LyricsContainer extends Component {
     this.handleClearAll = this.handleClearAll.bind(this);
     this.handleAddFavourite = this.handleAddFavourite.bind(this);
     this.handleCloseNumPad = this.handleCloseNumPad.bind(this);
+    this.initiateTimer = this.initiateTimer.bind(this);
+    this.updateCurrentSong = this.updateCurrentSong.bind(this);
   }
 
   handleOpenNumPad(id) {
@@ -108,11 +121,15 @@ class LyricsContainer extends Component {
   }
 
   handleSongSearch() {
-    console.log('handleSongSearch....', this.state);
+    // console.log('handleSongSearch....', this.state);
     let searchKey = this.state.searchKey;
-    this.setState({
-      isOpen: false
-    })
+    let searchResult = this.getSongFromDb(+searchKey);
+    console.log('searchResult', searchResult);
+    // Actions.refresh({ songNo: +searchKey})
+    // Actions.pop();
+    if(searchResult) {
+      this.updateCurrentSong(searchResult);
+    }
   }
   handleNumPadTab(value) {
     if (this.state.searchKey.length < 3) {
@@ -132,9 +149,7 @@ class LyricsContainer extends Component {
   }
 
   handleScroll(event) {
-    // console.log('handleScroll...', event);
     let currentOffset = event.nativeEvent.contentOffset.y;
-    // console.log(this.offset, currentOffset);
     let direction = currentOffset > this.offset ? 'down' : 'up';
     this.offset = currentOffset;
     this.setState({
@@ -142,14 +157,48 @@ class LyricsContainer extends Component {
     })
   }
 
+  getSongFromDb(songNo) {
+    let result = this.songDbRef.filtered(`key == ${songNo}`);
+    return (result.length > 0 ? result[0] : false);
+  }
+
+  updateCurrentSong(searchResult) {
+    this.props.navigationState.title = searchResult.key;
+      this.setState({
+        song: searchResult,
+        isOpen: false
+      })
+  }
+
   componentWillMount() {
     console.log('props..', this.props)
-    // console.log(selection);
+    // let currentSong = this.songDbRef.filtered('key == 371');
+    let searchResult =  this.getSongFromDb(this.songNo);
+    if(searchResult) {
+      this.updateCurrentSong(searchResult);
+    }
+  }
+
+  componentDidMount() {
+    this.initiateTimer();
+  }
+
+  componentWillUnmount() {
+    console.log('component unmounted...');
   }
 
   handleNumPad() {
 
   }
+
+  initiateTimer() {
+    setTimeout(function() {
+      this.setState({
+        isLoading: false
+      })
+    }.bind(this), 10000);
+  }
+
 
   getActionButton() {
     if (this.state.scrollDirection === SCROLLUP) {
@@ -175,7 +224,7 @@ class LyricsContainer extends Component {
     return (
       <View style={styles.container}>
         <ScrollView onScroll={this.handleScroll}>
-          <Lyrics {...this.props} />
+          <Lyrics lyrics={this.state.song} />
         </ScrollView >
         {this.getActionButton()}
         <Modal isOpen={this.state.isOpen} onClosed={this.closeModal5} style={[styles.modal, styles.modal4]} position={"center"} >
@@ -186,13 +235,27 @@ class LyricsContainer extends Component {
             onClearAll={this.handleClearAll}
             onCancel={this.handleCloseNumPad} />
         </Modal>
+        <Modal isOpen={this.state.isLoading} swipeToClose={false} entry="top" style={[styles.modal, styles.modal4]} position={"center"} >
+          <Text style={{color: 'white', fontWeight: 'bold', fontSize: 25}}> Loading </Text>
+          <ActivityIndicator
+            animating={this.state.isLoading}
+            style={[styles.centering, {backgroundColor: 'transparent' , height: 80}]}
+            size="large"
+          />
+        </Modal>
+
       </View>
     );
   }
 }
 
+// <Modal isOpen={this.state.isLoading} onClosed={this.closeModal5} style={[styles.modal, styles.modal4]} position={"center"} >
+//           <Text> Loading... </Text>
+//         </Modal>
 LyricsContainer.propTypes = {
-  lyrics: PropTypes.object.isRequired
+  // lyrics: PropTypes.object.isRequired
+  songNo: PropTypes.number.isRequired,
+  navigationState: PropTypes.object.isRequired
 }
 
 const mapActionCreators = {
