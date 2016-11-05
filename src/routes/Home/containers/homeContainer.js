@@ -48,11 +48,9 @@ class Home extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) => (
-            <View style={styles.listItem}>
-              <TouchableOpacity style={styles.list} onPress={this.showLyrics.bind(null, rowData)}>
-                <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={styles.list} onPress={this.showLyrics.bind(null, rowData)}>
+              <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
+            </TouchableOpacity>
           )}
         />
       </View>
@@ -61,18 +59,18 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-  listItem: {
-    height: 60,
-    flexDirection: 'column',
-    justifyContent: 'center',
+  list: {
+    flex: 1,
+    // backgroundColor: '#1abc9c',
+    backgroundColor: '#20C1BC',
+    paddingHorizontal: 15,
+    minHeight: 45,
+    // borderColor: 'rgb(213, 213, 213)',
+    borderColor: 'white',
+    borderTopWidth: 1,
     alignItems: 'flex-start',
-    // backgroundColor: '#E0C1B3',
-    // backgroundColor: '#E0C1B3',
-    backgroundColor: '#95a5a6',
-    borderStyle: 'solid',
-    borderColor: '#F2F6F9',
-    borderWidth: 1,
-    paddingHorizontal: 15
+    justifyContent: 'center'
+
   },
   text: {
     color: 'white',
