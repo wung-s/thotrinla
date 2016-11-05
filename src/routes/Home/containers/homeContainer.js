@@ -7,31 +7,39 @@ import realm from '../../../db/schema'
 class Home extends Component {
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.songInDB = realm.objects('Song').sorted('key');
+    // const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    // this.songInDB = realm.objects('Song').sorted('key');
+    // this.state = {
+    //   dataSource: ds.cloneWithRows(this.songInDB)
+    // };
     this.state = {
-      dataSource: ds.cloneWithRows(this.songInDB)
-    };
+      dataSource: null
+    }
+    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.songInDB = realm.objects('Song');
     this.showLyrics = this.showLyrics.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
 
   showLyrics(selectedSong) {
-    // console.log(typeof lyrics)
-    // Actions.lyrics({ lyrics: lyrics });
     Actions.lyrics({ songNo: selectedSong.key})
+  }
 
-    // Actions.searchModal();
+  loadData(songList) {
+    // let songInDB = realm.objects('Song').sorted('key');
+    this.state = {
+      dataSource: this.ds.cloneWithRows(songList)
+    };
   }
 
   componentWillMount() {
-    // console.log('song count: ', this.songInDB.length);
-    // console.log(song);
     if (this.songInDB.length <= 0) {
       var song = require('../../../db/seed')
       // console.log('songs are: ....', song);
       this.persistToDatabase(song);
-    }
-    // console.log('first song chorus: ', this.songInDB[0].chorus);
+      this.loadData(realm.objects('Song').sorted('key'));
+    } else
+      this.loadData(this.songInDB);
   }
 
   persistToDatabase(data) {
@@ -42,23 +50,31 @@ class Home extends Component {
     });
   }
 
+  renderSongList() {
+    return(<ListView
+      dataSource={this.state.dataSource}
+      renderRow={(rowData) => (
+        <TouchableOpacity style={styles.list} onPress={this.showLyrics.bind(null, rowData)}>
+          <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
+        </TouchableOpacity>
+      )}
+    />
+    );
+  }
+
   render() {
     return (
-      <View style={{flex: 1}}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => (
-            <TouchableOpacity style={styles.list} onPress={this.showLyrics.bind(null, rowData)}>
-              <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
-            </TouchableOpacity>
-          )}
-        />
+      <View style={styles.container}>
+        {this.renderSongList()}
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   list: {
     flex: 1,
     // backgroundColor: '#1abc9c',
