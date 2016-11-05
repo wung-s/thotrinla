@@ -26,11 +26,11 @@ class Home extends Component {
   componentWillMount() {
     // console.log('song count: ', this.songInDB.length);
     // console.log(song);
-    // if (this.songInDB.length <= 0) {
+    if (this.songInDB.length <= 0) {
       var song = require('../../../db/seed')
       // console.log('songs are: ....', song);
       this.persistToDatabase(song);
-    // }
+    }
     // console.log('first song chorus: ', this.songInDB[0].chorus);
   }
 
@@ -66,11 +66,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    backgroundColor: '#5EC2B7',
+    // backgroundColor: '#E0C1B3',
+    // backgroundColor: '#E0C1B3',
+    backgroundColor: '#95a5a6',
     borderStyle: 'solid',
     borderColor: '#F2F6F9',
     borderWidth: 1,
-    paddingHorizontal: 5
+    paddingHorizontal: 15
   },
   text: {
     color: 'white',

@@ -8,6 +8,7 @@ import TabView from '../components/TabView'
 import TabIcon from '../components/TabIcon'
 
 import SearchContainer from '../routes/Search/containers/searchContainer'
+// import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const createScenes = () => {
 	return Routes.childRoutes.map((route) => {
@@ -21,7 +22,8 @@ const createScenes = () => {
 }
 
 const navigationBarStyle = {
-	backgroundColor: '#DEE5E5'
+	backgroundColor: '#EE6055',
+	// backgroundColor: '#DEE5E5'
 }
 
 const styles = StyleSheet.create({
@@ -29,9 +31,9 @@ const styles = StyleSheet.create({
 	// 	flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
 	// 	alignItems: 'center',
 	// },
-	sceneStyle: {
-		paddingTop: 55
-	},
+	// sceneStyle: {
+	// 	paddingTop: 55
+	// },
 	tabBarStyle: {
 		backgroundColor: '#BBC8CA',
 	},
@@ -62,7 +64,7 @@ const scenes = Actions.create(
 						key="tab1"
 						title="Home"
 						icon={TabIcon}
-						navigationBarStyle={{ backgroundColor: '#FF715B' }}
+						navigationBarStyle={navigationBarStyle}
 						titleStyle={{ color: 'white' }}
 						// onRight={() => Actions.searchModal()}
 						// rightTitle='NumPad'

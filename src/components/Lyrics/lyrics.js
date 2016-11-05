@@ -40,15 +40,18 @@ function getBlockUI(stanza, stanzaCnt = 0, currentStanzaNo  = 0) {
       )
     })
 
+
   if(currentStanzaNo <= stanzaCnt && stanzaCnt != 0) {
     return(
       <View style={styles.para}>
+        <Text>{currentStanzaNo}</Text>
         {currentStanzaText}
       </View>
     )
   }else if( stanzaCnt === 0 && currentStanzaNo === 0) {
     return(
       <View style={styles.para}>
+        <Text>Chorus:</Text>
         {currentStanzaText}
       </View>
     )
