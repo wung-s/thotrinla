@@ -4,7 +4,9 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 15
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15
   },
   text: {
     fontSize: 20,

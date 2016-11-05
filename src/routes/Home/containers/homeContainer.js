@@ -26,11 +26,11 @@ class Home extends Component {
   componentWillMount() {
     // console.log('song count: ', this.songInDB.length);
     // console.log(song);
-    if (this.songInDB.length <= 0) {
+    // if (this.songInDB.length <= 0) {
       var song = require('../../../db/seed')
       // console.log('songs are: ....', song);
       this.persistToDatabase(song);
-    }
+    // }
     // console.log('first song chorus: ', this.songInDB[0].chorus);
   }
 
@@ -44,7 +44,7 @@ class Home extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) => (

@@ -180,7 +180,7 @@ class LyricsContainer extends Component {
   }
 
   componentDidMount() {
-    this.initiateTimer();
+    // this.initiateTimer();
   }
 
   componentWillUnmount() {

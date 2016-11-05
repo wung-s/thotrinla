@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   numPadWrapper: {
     backgroundColor: 'white',
-    padding: 20,
+    padding: 5,
     // borderWidth: 2,
     // borderColor: 'black'
   },
@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'powderblue'
   },
   numText: {
-    color: 'white', fontSize: 40
+    color: 'white', fontSize: 40, fontWeight: 'bold'
   },
   text: {
-    color: 'white', fontSize: 22
+    color: 'white', fontSize: 22, fontWeight:'bold'
   },
   welcome: {
     fontSize: 20,

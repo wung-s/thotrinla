@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   item: {
-    backgroundColor: '#DD7596',
+    backgroundColor: '#1abc9c',
     minHeight: 55,
     borderColor: 'rgb(213, 213, 213)',
     borderTopWidth: 1,
