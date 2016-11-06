@@ -22,7 +22,7 @@ class Home extends Component {
   }
 
   showLyrics(selectedSong) {
-    Actions.lyrics({ songNo: selectedSong.key})
+    Actions.lyrics({ songNo: selectedSong.key })
   }
 
   loadData(songList) {
@@ -51,14 +51,14 @@ class Home extends Component {
   }
 
   renderSongList() {
-    return(<ListView
+    return (<ListView
       dataSource={this.state.dataSource}
       renderRow={(rowData) => (
         <TouchableOpacity style={styles.list} onPress={this.showLyrics.bind(null, rowData)}>
           <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
         </TouchableOpacity>
       )}
-    />
+      />
     );
   }
 
@@ -99,5 +99,7 @@ const styles = StyleSheet.create({
     color: 'white',
   }
 })
+
+
 
 export default Home

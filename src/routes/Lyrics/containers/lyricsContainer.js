@@ -127,7 +127,7 @@ class LyricsContainer extends Component {
     console.log('searchResult', searchResult);
     // Actions.refresh({ songNo: +searchKey})
     // Actions.pop();
-    if(searchResult) {
+    if (searchResult) {
       this.updateCurrentSong(searchResult);
     }
   }
@@ -164,17 +164,17 @@ class LyricsContainer extends Component {
 
   updateCurrentSong(searchResult) {
     this.props.navigationState.title = searchResult.key;
-      this.setState({
-        song: searchResult,
-        isOpen: false
-      })
+    this.setState({
+      song: searchResult,
+      isOpen: false
+    })
   }
 
   componentWillMount() {
     console.log('props..', this.props)
     // let currentSong = this.songDbRef.filtered('key == 371');
-    let searchResult =  this.getSongFromDb(this.songNo);
-    if(searchResult) {
+    let searchResult = this.getSongFromDb(this.songNo);
+    if (searchResult) {
       this.updateCurrentSong(searchResult);
     }
   }
@@ -192,7 +192,7 @@ class LyricsContainer extends Component {
   }
 
   initiateTimer() {
-    setTimeout(function() {
+    setTimeout(function () {
       this.setState({
         isLoading: false
       })
@@ -236,12 +236,12 @@ class LyricsContainer extends Component {
             onCancel={this.handleCloseNumPad} />
         </Modal>
         <Modal isOpen={this.state.isLoading} swipeToClose={false} entry="top" style={[styles.modal, styles.modal4]} position={"center"} >
-          <Text style={{color: 'white', fontWeight: 'bold', fontSize: 25}}> Loading </Text>
+          <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 25 }}> Loading </Text>
           <ActivityIndicator
             animating={this.state.isLoading}
-            style={[styles.centering, {backgroundColor: 'transparent' , height: 80}]}
+            style={[styles.centering, { backgroundColor: 'transparent', height: 80 }]}
             size="large"
-          />
+            />
         </Modal>
 
       </View>
@@ -249,9 +249,6 @@ class LyricsContainer extends Component {
   }
 }
 
-// <Modal isOpen={this.state.isLoading} onClosed={this.closeModal5} style={[styles.modal, styles.modal4]} position={"center"} >
-//           <Text> Loading... </Text>
-//         </Modal>
 LyricsContainer.propTypes = {
   // lyrics: PropTypes.object.isRequired
   songNo: PropTypes.number.isRequired,
