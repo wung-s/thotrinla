@@ -16,7 +16,7 @@ class Home extends Component {
       dataSource: null
     }
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.songInDB = realm.objects('Song');
+    this.songInDB = realm.objects('Song').sorted('key');
     this.showLyrics = this.showLyrics.bind(this);
     this.loadData = this.loadData.bind(this);
   }
