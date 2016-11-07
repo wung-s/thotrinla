@@ -3,9 +3,10 @@ import Realm from 'realm';
 class Song extends Realm.Object { }
 Song.schema = {
   name: 'Song',
+  primaryKey: 'songNo',
   properties: {
-    key: 'int',
-    title: { type: 'string', default: '' },
+    songNo: 'int',
+    title: { type: 'string', default: '', indexed: true },
     stanzaCnt: 'int',
     firstStanza: { type: 'string', default: '' },
     secondStanza: { type: 'string', default: '' },

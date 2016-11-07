@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
 class LyricsContainer extends Component {
   constructor(props) {
     super(props);
-    // console.log(props);
+    console.log(props);
+    // this.props.navigationState.title = props.title;
     this.offset = 0;
     this.songDbRef = realm.objects('Song');
     this.state = {
@@ -158,7 +159,7 @@ class LyricsContainer extends Component {
   }
 
   getSongFromDb(songNo) {
-    let result = this.songDbRef.filtered(`key == ${songNo}`);
+    let result = this.songDbRef.filtered(`songNo == ${songNo}`);
     return (result.length > 0 ? result[0] : false);
   }
 

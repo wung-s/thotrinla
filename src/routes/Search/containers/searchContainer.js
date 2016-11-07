@@ -1,84 +1,93 @@
-import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Animated, Dimensions } from 'react-native'
+import React, { Component, PropTypes } from 'react'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Animated,
+  Dimensions,
+  TextInput
+} from 'react-native'
+import { ListView } from 'realm/react-native'
 import { Actions } from 'react-native-router-flux'
 import NumberPad from '../../../components/NumberPad/NumberPad'
+
+import realm from '../../../db/schema'
+import ListBox from '../../../components/ListRow/ListRow'
 
 var {
   height: deviceHeight
 } = Dimensions.get("window");
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // flexDirection: 'row',
-    justifyContent: 'center',
-    // padding: 50,
-    backgroundColor: 'rgba(23, 115, 55, 0.1)',
-    // alignItems: 'center',
-    // backgroundColor: 'blue',
-    // backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderColor: 'black',
-    borderWidth: 2,
-    // backgroundColor:"transparent",
-    justifyContent: "center",
-    alignItems: "center",
-    // backgroundColor: "rgba(52,52,52,0.5)"
-
-  }
-});
-
-
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchKey: '' };
+    this.songInDB = realm.objects('Song').sorted('songNo');
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.state = {
+      searchKey: '',
+      dataSource: ds.cloneWithRows([]),
+    };
 
-    this.handleSongSearch = this.handleSongSearch.bind(this);
-    this.handleNumPadTab = this.handleNumPadTab.bind(this);
-    this.handleClearAll = this.handleClearAll.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.queryDb = this.queryDb.bind(this);
   }
 
-  handleSongSearch() {
-    // console.log('handleSongSearch....', this.state);
-    // Actions.lyrics({ key: this.state.searchKey });
-    let searchKey = this.state.searchKey;
-    Actions.dismiss();
-
-    // Actions.lyrics({ lyrics: searchKey });
-    // Actions.pop();
-    // Actions.lyrics();
-
-  }
-  handleNumPadTab(value) {
-    // console.log(value);
-    // console.log('handleNumPadTab called....', this.state);
-    if (this.state.searchKey.length < 3) {
-      this.setState({
-        searchKey: this.state.searchKey + value
-      })
-    }
-  }
-  handleClearAll() {
+  handleTextChange(text) {
+    console.log('val: ', text);
     this.setState({
-      searchKey: ''
+      searchKey: text
     })
+    if (this.state.searchKey.length >= 1)
+      this.queryDb(this.state.searchKey);
   }
-  handleCancel() {
-    Actions.pop();
+
+  queryDb(searchKey) {
+    let newDs = this.songInDB.filtered(`title CONTAINS[c] "${searchKey}"`).sorted('songNo');
+    let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.setState({
+      dataSource: ds.cloneWithRows(newDs)
+    });
   }
+
+  showLyrics(selectedSongNo) {
+    Actions.lyrics({ songNo: selectedSongNo })
+  }
+
 
   render() {
     return (
-      <View style={styles.container} >
-        <NumberPad
-          searchKey={this.state.searchKey}
-          onNumPadTab={this.handleNumPadTab}
-          onSongSearch={this.handleSongSearch}
-          onClearAll={this.handleClearAll}
-          onCancel={this.handleCancel} />
+      <View style={styles.container}>
+        <View style={{ padding: 10, paddingTop: 55 }}>
+          <TextInput
+            style={{ height: 40 }}
+            placeholder="Search By Song Title"
+            onChangeText={this.handleTextChange}
+            value={this.state.searchKey}
+            autoFocus={true}
+            />
+        </View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData) => (
+            <ListBox
+              {...rowData}
+              onSongSelect={this.showLyrics}
+              />
+          )}
+          />
+        <Text>{this.state.searchKey} </Text>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 3
+  }
+});
+
 
 export default Search;

@@ -1,43 +1,55 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Image, StyleSheet, ListView } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet
+} from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import { ListView } from 'realm/react-native';
 
 import realm from '../../../db/schema'
+import ListRow from '../../../components/ListRow/ListRow'
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    // const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    // this.songInDB = realm.objects('Song').sorted('key');
-    // this.state = {
-    //   dataSource: ds.cloneWithRows(this.songInDB)
-    // };
     this.state = {
       dataSource: null
     }
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.songInDB = realm.objects('Song').sorted('key');
+    this.songInDB = realm.objects('Song').sorted('songNo');
     this.showLyrics = this.showLyrics.bind(this);
     this.loadData = this.loadData.bind(this);
   }
 
-  showLyrics(selectedSong) {
-    Actions.lyrics({ songNo: selectedSong.key })
+  showLyrics(songNo, title) {
+    // console.log('title: ', title);
+    Actions.lyrics({ songNo: songNo })
+    // Actions.lyrics({ title: title, songNo: songNo })
   }
 
   loadData(songList) {
-    // let songInDB = realm.objects('Song').sorted('key');
     this.state = {
       dataSource: this.ds.cloneWithRows(songList)
     };
   }
 
+  // renderSeperator(sectionID, rowID, adjacentRowHighlighted) {
+  //   // console.log('renderSeperator', sectionID, rowID, adjacentRowHighlighted);
+  //   return (
+  //     <View style={styles.seperator}>
+  //       <Text> Hehe </Text>
+  //     </View>
+  //   )
+  // }
+
   componentWillMount() {
     if (this.songInDB.length <= 0) {
-      var song = require('../../../db/seed')
-      // console.log('songs are: ....', song);
+      var song = require('../../../db/seed');
       this.persistToDatabase(song);
-      this.loadData(realm.objects('Song').sorted('key'));
+      this.loadData(realm.objects('Song').sorted('songNo'));
     } else
       this.loadData(this.songInDB);
   }
@@ -53,10 +65,12 @@ class Home extends Component {
   renderSongList() {
     return (<ListView
       dataSource={this.state.dataSource}
+      // renderSeperator={this.renderSeperator}
       renderRow={(rowData) => (
-        <TouchableOpacity style={styles.list} onPress={this.showLyrics.bind(null, rowData)}>
-          <Text style={styles.text}>{rowData.key} {rowData.title}</Text>
-        </TouchableOpacity>
+        <ListRow
+          {...rowData}
+          onSongSelect={this.showLyrics}
+          />
       )}
       />
     );
@@ -73,25 +87,12 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  },
-  list: {
     flex: 1,
-    // backgroundColor: '#1abc9c',
-    backgroundColor: '#20C1BC',
-    paddingHorizontal: 15,
-    minHeight: 45,
-    // borderColor: 'rgb(213, 213, 213)',
-    borderColor: 'white',
-    borderTopWidth: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center'
-
+    paddingHorizontal: 3
   },
-  text: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16
+  seperator: {
+    height: 5,
+    backgroundColor: 'white'
   },
   actionButtonIcon: {
     fontSize: 20,

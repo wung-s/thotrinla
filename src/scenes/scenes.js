@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const createScenes = () => {
     return Routes.childRoutes.map((route) => {
-        // console.log(route);
+        console.log(route);
         return <Scene
             key={route.path}
             component={route.component}
@@ -53,41 +53,41 @@ const scenes = Actions.create(
                 component={NavigationDrawer}
                 title="Thotrin La"
                 >
-                {/*<Scene
-					key="main"
-					tabs
-					tabBarStyle={styles.tabBarStyle}
-					tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
-					hideTabBar
-					>*/}
                 <Scene
-                    key="tab1"
-                    title="Home"
-                    icon={TabIcon}
-                    navigationBarStyle={navigationBarStyle}
-                    titleStyle={{ color: 'white' }}
-                    drawerImage={require('../assets/images/drawer-burger.png')}
-                    // drawerImage={require('../assets/images/left-arrow-key-white.png')}
-                    backButtonImage={require('../assets/images/left-arrow-key-white.png')}
-                    // drawerImage={{ uri: "file:///data/data/com.tangkhulthotrinla/cache/-lvo1bj_80@4x.png" }}
-                    // rightButtonImage={{ uri: "file:///data/data/com.tangkhulthotrinla/cache/-lvo1bj_80@4x.png", }}
-                    // rightButtonImage={require('../assets/images/church.jpg')}
-                    // onRight={() => Actions.searchModal()}
-                    // rightButtonIconStyle={{ height: 80 }}
-                    // rightTitle='NumPad'
-                    // navBar={renderCustomNavBar()}
-                    // hideNavBar={true}
-                    initial={true}
+                    key="main"
+                    tabs
+                    tabBarStyle={styles.tabBarStyle}
+                    tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
+                    hideTabBar
                     >
                     <Scene
-                        key={Routes.indexRoute.path}
-                        component={Routes.indexRoute.component}
-                        title={Routes.indexRoute.title}
-                        sceneStyle={{ borderWidth: 1, borderStyle: 'solid', paddingTop: 55 }}
-                        />
-                    {createScenes()}
+                        key="tab1"
+                        title="Home"
+                        icon={TabIcon}
+                        navigationBarStyle={navigationBarStyle}
+                        titleStyle={{ color: 'white' }}
+                        drawerImage={require('../assets/images/drawer-burger.png')}
+                        // drawerImage={require('../assets/images/left-arrow-key-white.png')}
+                        backButtonImage={require('../assets/images/left-arrow-key-white.png')}
+                        // drawerImage={{ uri: "file:///data/data/com.tangkhulthotrinla/cache/-lvo1bj_80@4x.png" }}
+                        // rightButtonImage={{ uri: "file:///data/data/com.tangkhulthotrinla/cache/-lvo1bj_80@4x.png", }}
+                        // rightButtonImage={require('../assets/images/magnifying-glass2.png')}
+                        onRight={() => Actions.searchModal()}
+                        // rightButtonIconStyle={{ height: 50 }}
+                        rightTitle='Search'
+                        // navBar={renderCustomNavBar()}
+                        // hideNavBar={true}
+                        initial={true}
+                        >
+                        <Scene
+                            key={Routes.indexRoute.path}
+                            component={Routes.indexRoute.component}
+                            title={Routes.indexRoute.title}
+                            sceneStyle={{ borderWidth: 1, borderStyle: 'solid', paddingTop: 55 }}
+                            />
+                        {createScenes()}
+                    </Scene>
                 </Scene>
-                {/*</Scene>*/}
             </Scene>
             <Scene
                 key="searchModal"
@@ -95,7 +95,9 @@ const scenes = Actions.create(
                 component={SearchContainer}
                 title="Search"
                 icon={TabIcon}
-                hideNavBar />
+                backButtonImage={require('../assets/images/left-arrow-key-white.png')}
+                // hideNavBar
+                />
         </Scene>
     </Scene>
 )
