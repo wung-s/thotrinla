@@ -71,10 +71,10 @@ const scenes = Actions.create(
                         backButtonImage={require('../assets/images/left-arrow-key-white.png')}
                         // drawerImage={{ uri: "file:///data/data/com.tangkhulthotrinla/cache/-lvo1bj_80@4x.png" }}
                         // rightButtonImage={{ uri: "file:///data/data/com.tangkhulthotrinla/cache/-lvo1bj_80@4x.png", }}
-                        // rightButtonImage={require('../assets/images/magnifying-glass2.png')}
+                        rightButtonImage={require('../assets/images/magnifying-glass.png')}
                         onRight={() => Actions.searchModal()}
-                        // rightButtonIconStyle={{ height: 50 }}
-                        rightTitle='Search'
+                        // rightButtonIconStyle={{ resizeMode: 'contain' }}
+                        // rightTitle='Search'
                         // navBar={renderCustomNavBar()}
                         // hideNavBar={true}
                         initial={true}
