@@ -24,7 +24,7 @@ class Home extends Component {
     this.loadData = this.loadData.bind(this);
   }
 
-  showLyrics(songNo, title) {
+  showLyrics(songNo) {
     // console.log('title: ', title);
     Actions.lyrics({ songNo: songNo })
     // Actions.lyrics({ title: title, songNo: songNo })

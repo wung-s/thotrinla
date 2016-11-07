@@ -164,7 +164,7 @@ class LyricsContainer extends Component {
   }
 
   updateCurrentSong(searchResult) {
-    this.props.navigationState.title = searchResult.key;
+    this.props.navigationState.title = searchResult.songNo + '   ' + searchResult.title;
     this.setState({
       song: searchResult,
       isOpen: false
@@ -172,8 +172,6 @@ class LyricsContainer extends Component {
   }
 
   componentWillMount() {
-    console.log('props..', this.props)
-    // let currentSong = this.songDbRef.filtered('key == 371');
     let searchResult = this.getSongFromDb(this.songNo);
     if (searchResult) {
       this.updateCurrentSong(searchResult);
