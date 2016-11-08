@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
     tabBarStyle: {
         backgroundColor: '#BBC8CA',
     },
+    titleTextStyle: {
+        color: 'white',
+        fontWeight: 'bold'
+    },
     tabBarSelectedItemStyle: {
         backgroundColor: '#9DCBBA',
     },
@@ -65,7 +69,7 @@ const scenes = Actions.create(
                         title="Home"
                         icon={TabIcon}
                         navigationBarStyle={navigationBarStyle}
-                        titleStyle={{ color: 'white' }}
+                        titleStyle={styles.titleTextStyle}
                         drawerImage={require('../assets/images/drawer-burger.png')}
                         // drawerImage={require('../assets/images/left-arrow-key-white.png')}
                         backButtonImage={require('../assets/images/left-arrow-key-white.png')}
@@ -94,6 +98,7 @@ const scenes = Actions.create(
                 direction="vertical"
                 component={SearchContainer}
                 title="Search"
+                titleStyle={styles.titleTextStyle}
                 icon={TabIcon}
                 backButtonImage={require('../assets/images/left-arrow-key-white.png')}
                 // hideNavBar

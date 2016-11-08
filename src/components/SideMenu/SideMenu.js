@@ -17,8 +17,8 @@ const SideMenu = (props, context) => {
 
   return (
     <ScrollView>
-      <View >
-        <Image style={styles.homeImage} source={require('../../assets/images/church.jpg')} />
+      <View style={styles.logoWrapper}>
+        <Image style={styles.homeImage} source={require('../../assets/images/4C_3.jpg')} />
       </View>
       <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.home() } } >
         <Text style={styles.text}>
@@ -58,9 +58,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
 
   },
+  logoWrapper: {
+    padding: 10,
+    // justifyContent: 'center'
+    // width: 280,
+    // height: 150,
+  },
   homeImage: {
-    width: 300,
-    height: 150
+    width: 280,
+    height: 150,
+    resizeMode: 'contain'
   }
 })
 
