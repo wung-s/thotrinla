@@ -86,6 +86,7 @@ class LyricsContainer extends Component {
     // this.props.navigationState.title = props.title;
     this.offset = 0;
     this.songDbRef = realm.objects('Song');
+    this.favDbRef = realm.objects('Favourite');
     this.state = {
       isOpen: false,
       searchKey: '',
@@ -93,7 +94,7 @@ class LyricsContainer extends Component {
       isLoading: false,
       song: []
     }
-    this.songNo = props.songNo;
+    this.currSongNo = props.songNo;
     // console.log(this.songDbRef.filtered('key == "371"').length);
     // this.state = { searchKey: '' };
     this.handleScroll = this.handleScroll.bind(this);
@@ -147,6 +148,16 @@ class LyricsContainer extends Component {
 
   handleAddFavourite() {
     // console.log('add to Favourite...');
+    let result = this.favDbRef.filtered(`songNo == ${this.currSongNo}`);
+    let currSongNo = this.currSongNo;
+    if (result.length < 1) {
+      realm.write(() => {
+        realm.create('Favourite', {
+          songNo: currSongNo
+        });
+      });
+      // console.log('write complete..');
+    }
   }
 
   handleScroll(event) {
@@ -172,7 +183,7 @@ class LyricsContainer extends Component {
   }
 
   componentWillMount() {
-    let searchResult = this.getSongFromDb(this.songNo);
+    let searchResult = this.getSongFromDb(this.currSongNo);
     if (searchResult) {
       this.updateCurrentSong(searchResult);
     }
@@ -206,9 +217,9 @@ class LyricsContainer extends Component {
           <ActionButton.Item buttonColor='#9b59b6' title="Number Pad" onPress={this.handleOpenNumPad}>
             <Icon name="dialpad" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          {/*<ActionButton.Item buttonColor='#3498db' title="Favourite" onPress={this.handleAddFavourite}>
+          <ActionButton.Item buttonColor='#3498db' title="Favourite" onPress={this.handleAddFavourite}>
             <Icon name="favorite-border" style={styles.actionButtonIcon} />
-          </ActionButton.Item>*/}
+          </ActionButton.Item>
           {/*<ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => { } }>
             <Icon name="md-done-all" style={styles.actionButtonIcon} />
           </ActionButton.Item>

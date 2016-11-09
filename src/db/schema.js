@@ -17,12 +17,13 @@ Song.schema = {
     chorus: { type: 'string', default: '' }
   }
 };
-class Animal extends Realm.Object { }
-Animal.schema = {
-  name: 'Animal',
+class Favourite extends Realm.Object { }
+Favourite.schema = {
+  name: 'Favourite',
+  primaryKey: 'songNo',
   properties: {
-    name: 'string'
+    songNo: 'int'
   }
 }
 
-export default new Realm({ schema: [Song, Animal] });
+export default new Realm({ schema: [Song, Favourite] });

@@ -30,6 +30,11 @@ const SideMenu = (props, context) => {
           Preface
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.favourite() } }>
+        <Text style={styles.text}>
+          Favourite
+        </Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.about() } }>
         <Text style={styles.text}>
           About
