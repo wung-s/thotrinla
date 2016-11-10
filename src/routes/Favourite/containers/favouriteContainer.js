@@ -106,9 +106,9 @@ class FavouriteContainer extends Component {
     let query = this.getQuery();
     let songList = [];
     if (query !== '')
-      songListRef = this.songInDBRef.filtered(query).sorted('songNo');
+      songList = this.songInDBRef.filtered(query).sorted('songNo');
     this.setState({
-      listViewData: this.allFavSongs(songListRef)
+      listViewData: this.allFavSongs(songList)
     })
   }
 
