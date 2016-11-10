@@ -9,6 +9,7 @@ import {
 
 const ListRow = (props) => {
     // const { onClearAll, onNumPadTab, onSongSearch, searchKey, onCancel } = props;
+    // console.log('props', props);
     const { songNo, title, onSongSelect } = props;
 
     return (
