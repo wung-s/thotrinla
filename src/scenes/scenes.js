@@ -76,7 +76,8 @@ const scenes = Actions.create(
                         // drawerImage={{ uri: "file:///data/data/com.tangkhulthotrinla/cache/-lvo1bj_80@4x.png" }}
                         // rightButtonImage={{ uri: "file:///data/data/com.tangkhulthotrinla/cache/-lvo1bj_80@4x.png", }}
                         rightButtonImage={require('../assets/images/magnifying-glass.png')}
-                        onRight={() => Actions.searchModal()}
+                        onRight={() => Actions.search()}
+                        // onRight={() => Actions.searchModal()}
                         // rightButtonIconStyle={{ resizeMode: 'contain' }}
                         // rightTitle='Search'
                         // navBar={renderCustomNavBar()}
@@ -93,7 +94,7 @@ const scenes = Actions.create(
                     </Scene>
                 </Scene>
             </Scene>
-            <Scene
+            {/*<Scene
                 key="searchModal"
                 direction="vertical"
                 component={SearchContainer}
@@ -103,6 +104,7 @@ const scenes = Actions.create(
                 backButtonImage={require('../assets/images/left-arrow-key-white.png')}
                 // hideNavBar
                 />
+            */}
         </Scene>
     </Scene>
 )
