@@ -9,9 +9,15 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   text: {
-    fontSize: 20,
-    textAlign: 'left'
+    color: 'darkgrey'
   },
+  textBlock: {
+    fontSize: 20,
+    textAlign: 'left',
+  },
+  // verseIndicatorText: {
+  //   color: 'darkgray'
+  // },
   para: {
     paddingTop: 20
   },
@@ -23,36 +29,36 @@ const styles = StyleSheet.create({
 })
 
 function removeExtraNewLine(stanza) {
-  let tmpArr = stanza.split('\n').reduce(function(newStanza, currItem) {
-    if(currItem)
+  let tmpArr = stanza.split('\n').reduce(function (newStanza, currItem) {
+    if (currItem)
       newStanza.push(currItem);
     return newStanza;
   }, []).join('\n');
   return tmpArr;
 }
 
-function getBlockUI(stanza, stanzaCnt = 0, currentStanzaNo  = 0) {
-  let currentStanzaText = removeExtraNewLine(stanza).split('\n').map(function(currentLine, index) {
-      return(
-        <Text key={index} style={styles.text}>
-          {currentLine}
-        </Text>
-      )
-    })
+function getBlockUI(stanza, stanzaCnt = 0, currentStanzaNo = 0) {
+  let currentTextBlock = removeExtraNewLine(stanza).split('\n').map(function (currentLine, index) {
+    return (
+      <Text key={index} style={[styles.text, styles.textBlock]}>
+        {currentLine}
+      </Text>
+    )
+  })
 
 
-  if(currentStanzaNo <= stanzaCnt && stanzaCnt != 0) {
-    return(
+  if (currentStanzaNo <= stanzaCnt && stanzaCnt != 0) {
+    return (
       <View style={styles.para}>
-        <Text>{currentStanzaNo}</Text>
-        {currentStanzaText}
+        <Text style={[styles.text, styles.verseIndicatorText]}>{currentStanzaNo}</Text>
+        {currentTextBlock}
       </View>
     )
-  }else if( stanzaCnt === 0 && currentStanzaNo === 0) {
-    return(
+  } else if (stanzaCnt === 0 && currentStanzaNo === 0) {
+    return (
       <View style={styles.para}>
-        <Text>Chorus:</Text>
-        {currentStanzaText}
+        <Text style={[styles.text, styles.verseIndicatorText]}>Chorus:</Text>
+        {currentTextBlock}
       </View>
     )
   }
@@ -64,12 +70,12 @@ const Lyrics = ({ lyrics }) => {
   // console.log(lyrics, 'chorus: ',lyrics.chorus);
   return (
     <View style={styles.container}>
-      {lyrics.firstStanza ? getBlockUI(lyrics.firstStanza, lyrics.stanzaCnt, 1) : null }
+      {lyrics.firstStanza ? getBlockUI(lyrics.firstStanza, lyrics.stanzaCnt, 1) : null}
       {lyrics.chorus ? getBlockUI(lyrics.chorus) : null}
-      {lyrics.secondStanza ? getBlockUI(lyrics.secondStanza, lyrics.stanzaCnt, 2) : null }
-      {lyrics.thirdStanza ? getBlockUI(lyrics.thirdStanza, lyrics.stanzaCnt, 3) : null }
-      {lyrics.fourthStanza ? getBlockUI(lyrics.fourthStanza, lyrics.stanzaCnt, 4) : null }
-      {lyrics.fifthStanza ? getBlockUI(lyrics.fifthStanza, lyrics.stanzaCnt, 5) : null }
+      {lyrics.secondStanza ? getBlockUI(lyrics.secondStanza, lyrics.stanzaCnt, 2) : null}
+      {lyrics.thirdStanza ? getBlockUI(lyrics.thirdStanza, lyrics.stanzaCnt, 3) : null}
+      {lyrics.fourthStanza ? getBlockUI(lyrics.fourthStanza, lyrics.stanzaCnt, 4) : null}
+      {lyrics.fifthStanza ? getBlockUI(lyrics.fifthStanza, lyrics.stanzaCnt, 5) : null}
     </View>
   )
 }

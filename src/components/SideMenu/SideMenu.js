@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(213, 213, 213)',
     borderTopWidth: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    elevation: 2
 
   },
   logoWrapper: {

@@ -22,8 +22,8 @@ const createScenes = () => {
 }
 
 const navigationBarStyle = {
-    backgroundColor: '#EE6055',
-    // backgroundColor: '#DEE5E5'
+    // backgroundColor: '#EE6055',
+    backgroundColor: 'steelblue'
 }
 
 const styles = StyleSheet.create({

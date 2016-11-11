@@ -7,7 +7,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { ListView } from 'realm/react-native';
+import { ListView } from 'realm/react-native'
 
 import realm from '../../../db/schema'
 import ListRow from '../../../components/ListRow/ListRow'

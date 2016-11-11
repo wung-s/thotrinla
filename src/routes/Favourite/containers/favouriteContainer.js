@@ -13,8 +13,6 @@ import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view'
 import ListRow from '../../../components/ListRow/ListRow'
 import realm from '../../../db/schema'
 
-
-
 const styles = StyleSheet.create({
   noFavContainer: {
     flex: 1,
@@ -25,7 +23,6 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   container: {
-    backgroundColor: 'white',
     flex: 1,
     paddingHorizontal: 3
   },
@@ -34,11 +31,14 @@ const styles = StyleSheet.create({
   },
   rowFront: {
     alignItems: 'center',
-    backgroundColor: '#CCC',
-    borderBottomColor: 'black',
+    // backgroundColor: 'powderblue',
+    backgroundColor: 'white',
+    borderBottomColor: 'darkgrey',
     borderBottomWidth: 1,
     justifyContent: 'center',
     height: 50,
+    paddingHorizontal: 15,
+    elevation: 2
   },
   rowBack: {
     alignItems: 'center',
@@ -54,17 +54,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     top: 0,
-    width: 75
+    width: 75,
+    borderBottomWidth: 1,
+    borderBottomColor: 'white'
   },
   backRightBtnLeft: {
     backgroundColor: 'blue',
     right: 75
   },
   backRightBtnRight: {
-    backgroundColor: 'red',
+    backgroundColor: 'rgba(231,76,60,1)',
     right: 0
+  },
+  labelWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  text: {
+    color: 'darkgray',
+    // fontWeight: 'bold',
+    fontSize: 16
   }
-
 })
 
 
@@ -145,8 +157,12 @@ class FavouriteContainer extends Component {
             style={styles.rowFront}
             // underlayColor={'#AAA'}
             >
-            <View>
+            {/*<View>
               <Text>{data.songNo}   {data.title}</Text>
+            </View>*/}
+            <View style={styles.labelWrapper}>
+              <Text style={[styles.text, { flex: .2 }]}>{data.songNo}</Text>
+              <Text style={[styles.text, { flex: .8 }]}>{data.title}</Text>
             </View>
           </TouchableHighlight>
         )}
@@ -164,7 +180,7 @@ class FavouriteContainer extends Component {
   }
 
   render() {
-    console.log('no of fav songs: ', this.favDbRef.length);
+    // console.log('no of fav songs: ', this.favDbRef.length);
     if (this.favDbRef.length >= 1) {
       return (
         <View style={styles.container}>

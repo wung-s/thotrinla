@@ -233,10 +233,10 @@ class LyricsContainer extends Component {
     if (this.state.scrollDirection === SCROLLUP) {
       return (
         <ActionButton buttonColor="rgba(231,76,60,1)">
-          <ActionButton.Item buttonColor='#9b59b6' title="Number Pad" onPress={this.handleOpenNumPad}>
+          <ActionButton.Item buttonColor='steelblue' title="Number Pad" onPress={this.handleOpenNumPad}>
             <Icon name="dialpad" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Favourite" onPress={this.handleAddFavourite}>
+          <ActionButton.Item buttonColor='powderblue' title="Favourite" onPress={this.handleAddFavourite}>
             <Icon name="favorite-border" style={styles.actionButtonIcon} />
           </ActionButton.Item>
           {/*<ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => { } }>
