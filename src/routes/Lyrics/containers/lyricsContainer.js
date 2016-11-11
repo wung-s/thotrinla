@@ -1,5 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  ToastAndroid
+} from 'react-native'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import realm from '../../../db/schema'
@@ -146,6 +155,14 @@ class LyricsContainer extends Component {
     })
   }
 
+  showToaster(message) {
+    ToastAndroid.showWithGravity(
+      message,
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+    )
+  }
+
   handleAddFavourite() {
     // console.log('add to Favourite...');
     let result = this.favDbRef.filtered(`songNo == ${this.currSongNo}`);
@@ -156,8 +173,10 @@ class LyricsContainer extends Component {
           songNo: currSongNo
         });
       });
+      this.showToaster('Added to your favourites list')
       // console.log('write complete..');
-    }
+    } else
+      this.showToaster('Already in the list');
   }
 
   handleScroll(event) {
