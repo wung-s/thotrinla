@@ -10,13 +10,13 @@ import {
 const ListRow = (props) => {
     // const { onClearAll, onNumPadTab, onSongSearch, searchKey, onCancel } = props;
     // console.log('props', props);
-    const { songNo, title, onSongSelect } = props;
+    const { songNo, title, onSongSelect, fontSize } = props;
 
     return (
         <TouchableOpacity style={styles.list} onPress={onSongSelect.bind(null, songNo)}>
             <View style={styles.labelWrapper}>
-                <Text style={[styles.text, { flex: .2 }]}>{songNo}</Text>
-                <Text style={[styles.text, { flex: .8 }]}>{title}</Text>
+                <Text style={[styles.text, { flex: .2 }, { fontSize }]}>{songNo}</Text>
+                <Text style={[styles.text, { flex: .8 }, , { fontSize }]}>{title}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'darkgrey',
-        // fontWeight: 'bold',
-        fontSize: 16
     }, seperator: {
         height: 1,
         backgroundColor: 'white'
@@ -57,7 +55,11 @@ const styles = StyleSheet.create({
 ListRow.propTypes = {
     songNo: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    onSongSelect: PropTypes.func.isRequired
+    onSongSelect: PropTypes.func.isRequired,
+    fontSize: PropTypes.number.isRequired
 };
+ListRow.defaultProps = {
+    fontSize: 16
+}
 
 export default ListRow

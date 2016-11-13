@@ -7,7 +7,8 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
-  ToastAndroid
+  ToastAndroid,
+  Slider
 } from 'react-native'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
@@ -17,6 +18,7 @@ import { selection } from '../modules/lyricsReducer'
 // import Lyrics from '../../../components/Lyrics/lyrics'
 import Lyrics from '../../../components/Lyrics/lyrics'
 import NumberPad from '../../../components/NumberPad/NumberPad'
+import Setting from '../../../components/Setting/Setting'
 
 import ActionButton from 'react-native-action-button'
 // import Icon from 'react-native-vector-icons/Ionicons'
@@ -44,20 +46,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-
-  modal2: {
-    height: 230,
-    backgroundColor: "#3B5998"
-  },
-
-  modal3: {
-    height: 300,
-    width: 300
-  },
-
-  modal4: {
+  modalNumpad: {
     // height: 300
     backgroundColor: "transparent"
+  },
+  modalSetting: {
+    height: 150,
+    // backgroundColor: "transparent"
   },
 
   btn: {
@@ -75,15 +70,29 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "transparent"
   },
-
   text: {
-    color: "black",
-    fontSize: 22
+    color: "grey",
+    fontSize: 16
+  },
+  textLabel: {
+    fontSize: 16
+  },
+  textBtn: {
+    fontSize: 26,
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   centering: {
     alignItems: 'center',
     justifyContent: 'center',
     padding: 8,
+  },
+  btnSetting: {
+    flex: .5,
+    justifyContent:'center',
+    backgroundColor: 'powderblue',
+    height: 50
   }
 });
 
@@ -91,21 +100,21 @@ const styles = StyleSheet.create({
 class LyricsContainer extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    // this.props.navigationState.title = props.title;
     this.offset = 0;
     this.songDbRef = realm.objects('Song');
     this.favDbRef = realm.objects('Favourite');
+    this.settingDbRef = realm.objects('Setting').filtered('id == 1')[0];
     this.state = {
-      isOpen: false,
+      isNumpadOpen: false,
       searchKey: '',
       scrollDirection: SCROLLUP,
       isLoading: false,
-      song: []
+      song: [],
+      isSettingOpen: false,
+      fontSize: this.settingDbRef.fontSize
     }
+    this.fontSizeBefore = this.settingDbRef.fontSize;
     this.currSongNo = props.songNo;
-    // console.log(this.songDbRef.filtered('key == "371"').length);
-    // this.state = { searchKey: '' };
     this.handleScroll = this.handleScroll.bind(this);
     this.handleOpenNumPad = this.handleOpenNumPad.bind(this);
     this.handleSongSearch = this.handleSongSearch.bind(this);
@@ -115,33 +124,35 @@ class LyricsContainer extends Component {
     this.handleCloseNumPad = this.handleCloseNumPad.bind(this);
     this.initiateTimer = this.initiateTimer.bind(this);
     this.updateCurrentSong = this.updateCurrentSong.bind(this);
+    this.handleOpenSetting = this.handleOpenSetting.bind(this);
+    this.handleSlidingComplete = this.handleSlidingComplete.bind(this);
+    this.handleSettingConfirm = this.handleSettingConfirm.bind(this);
+    this.handleSettingCancel = this.handleSettingCancel.bind(this);
+    this.persistToDatabase = this.persistToDatabase.bind(this);
   }
 
   handleOpenNumPad(id) {
     this.setState({
-      isOpen: true,
+      isNumpadOpen: true,
+      isSettingOpen: false,
       searchKey: ''
     });
   }
 
-
   handleCloseNumPad() {
     this.setState({
-      isOpen: false
+      isNumpadOpen: false
     })
   }
 
   handleSongSearch() {
-    // console.log('handleSongSearch....', this.state);
     let searchKey = this.state.searchKey;
     let searchResult = this.getSongFromDb(+searchKey);
-    console.log('searchResult', searchResult);
-    // Actions.refresh({ songNo: +searchKey})
-    // Actions.pop();
     if (searchResult) {
       this.updateCurrentSong(searchResult);
     }
   }
+
   handleNumPadTab(value) {
     if (this.state.searchKey.length < 3) {
       this.setState({
@@ -149,6 +160,7 @@ class LyricsContainer extends Component {
       })
     }
   }
+
   handleClearAll() {
     this.setState({
       searchKey: ''
@@ -173,8 +185,7 @@ class LyricsContainer extends Component {
           songNo: currSongNo
         });
       });
-      this.showToaster('Added to your favourites list')
-      // console.log('write complete..');
+      this.showToaster('Added to your favourites list');
     } else
       this.showToaster('Already in the list');
   }
@@ -197,7 +208,7 @@ class LyricsContainer extends Component {
     this.props.navigationState.title = searchResult.songNo + '   ' + searchResult.title;
     this.setState({
       song: searchResult,
-      isOpen: false
+      isNumpadOpen: false
     })
   }
 
@@ -216,8 +227,35 @@ class LyricsContainer extends Component {
     console.log('component unmounted...');
   }
 
-  handleNumPad() {
+  persistToDatabase(table, data) {
+    realm.write(() => {
+      data.forEach(currentData => {
+        realm.create(table, {id: 1, fontSize: currentData.fontSize}, true);
+      });
+    });
+  }
 
+  handleOpenSetting() {
+    this.setState({
+      isSettingOpen: true,
+      isNumpadOpen: false
+    });
+  }
+  handleSlidingComplete(value) {
+    console.log('slidingcomplete.. ', value);
+    this.setState({ fontSize: value });
+  }
+  handleSettingCancel() {
+    this.setState({
+      isSettingOpen: false,
+      fontSize: this.fontSizeBefore
+    });
+  }
+  handleSettingConfirm() {
+    this.persistToDatabase('Setting', [{fontSize: +this.state.fontSize}])
+    this.setState({
+      isSettingOpen: false
+    })
   }
 
   initiateTimer() {
@@ -239,10 +277,9 @@ class LyricsContainer extends Component {
           <ActionButton.Item buttonColor='powderblue' title="Favourite" onPress={this.handleAddFavourite}>
             <Icon name="favorite-border" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          {/*<ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => { } }>
-            <Icon name="md-done-all" style={styles.actionButtonIcon} />
+          <ActionButton.Item buttonColor='#1abc9c' title="Settings" onPress={this.handleOpenSetting}>
+            <Icon name="settings" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          */}
         </ActionButton>
       )
     } else
@@ -253,10 +290,10 @@ class LyricsContainer extends Component {
     return (
       <View style={styles.container}>
         <ScrollView onScroll={this.handleScroll}>
-          <Lyrics lyrics={this.state.song} />
+          <Lyrics lyrics={this.state.song} fontSize={this.state.fontSize}/>
         </ScrollView >
         {this.renderActionButton()}
-        <Modal isOpen={this.state.isOpen} onClosed={this.closeModal5} style={[styles.modal, styles.modal4]} position={"center"} >
+        <Modal isOpen={this.state.isNumpadOpen} onClosed={this.closeModal5} style={[styles.modal, styles.modalNumpad]} position={"center"} >
           <NumberPad
             searchKey={this.state.searchKey}
             onNumPadTab={this.handleNumPadTab}
@@ -264,7 +301,7 @@ class LyricsContainer extends Component {
             onClearAll={this.handleClearAll}
             onCancel={this.handleCloseNumPad} />
         </Modal>
-        <Modal isOpen={this.state.isLoading} swipeToClose={false} entry="top" style={[styles.modal, styles.modal4]} position={"center"} >
+        <Modal isOpen={this.state.isLoading} swipeToClose={false} entry="top" style={[styles.modal, styles.modalNumpad]} position={"center"} >
           <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 25 }}> Loading </Text>
           <ActivityIndicator
             animating={this.state.isLoading}
@@ -272,14 +309,33 @@ class LyricsContainer extends Component {
             size="large"
             />
         </Modal>
-
+        <Modal isOpen={this.state.isSettingOpen} swipeToClose={false} style={[styles.modal, styles.modalSetting]} position={"center"} >
+          <View style={{ backgroundColor: 'white', width: 200 }}>
+            {/*<Setting onSlidingCompleteHandler={this.handleSlidingComplete} fontSize={this.state.fontSize} />*/}
+            <Text style={[styles.text, styles.textLabel]}> Font Size: {this.state.fontSize} </Text>
+            <Slider
+              onSlidingComplete={(value) => this.handleSlidingComplete(value)}
+              minimumValue={12}
+              maximumValue={26}
+              step={2}
+              value={this.settingDbRef.fontSize}
+              />
+            <View style={{flex: 1, flexDirection: 'row', justifyContent:'center', paddingTop: 20}}>
+              <TouchableOpacity style={[styles.btnSetting, {backgroundColor: 'powderblue'}]} onPress={this.handleSettingCancel}>
+                <Text style={[styles.text, styles.textBtn]}> Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.btnSetting, { backgroundColor: 'steelblue'}]} onPress={this.handleSettingConfirm} >
+                <Text style={[styles.text, styles.textBtn]}> Ok </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
 }
 
 LyricsContainer.propTypes = {
-  // lyrics: PropTypes.object.isRequired
   songNo: PropTypes.number.isRequired,
   navigationState: PropTypes.object.isRequired
 }

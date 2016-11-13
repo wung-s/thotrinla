@@ -12,12 +12,8 @@ const styles = StyleSheet.create({
     color: 'darkgrey'
   },
   textBlock: {
-    fontSize: 20,
     textAlign: 'left',
   },
-  // verseIndicatorText: {
-  //   color: 'darkgray'
-  // },
   para: {
     paddingTop: 20
   },
@@ -37,51 +33,52 @@ function removeExtraNewLine(stanza) {
   return tmpArr;
 }
 
-function getBlockUI(stanza, stanzaCnt = 0, currentStanzaNo = 0) {
+function getBlockUI(stanza, stanzaCnt = 0, currentStanzaNo = 0, fontSize) {
+  let indicatorFontSize = fontSize - 6;
   let currentTextBlock = removeExtraNewLine(stanza).split('\n').map(function (currentLine, index) {
     return (
-      <Text key={index} style={[styles.text, styles.textBlock]}>
+      <Text key={index} style={[styles.text, styles.textBlock, {fontSize }]}>
         {currentLine}
       </Text>
     )
   })
 
-
   if (currentStanzaNo <= stanzaCnt && stanzaCnt != 0) {
     return (
       <View style={styles.para}>
-        <Text style={[styles.text, styles.verseIndicatorText]}>{currentStanzaNo}</Text>
+        <Text style={[styles.text, { fontSize: indicatorFontSize } ]}>{currentStanzaNo}</Text>
         {currentTextBlock}
       </View>
     )
   } else if (stanzaCnt === 0 && currentStanzaNo === 0) {
     return (
       <View style={styles.para}>
-        <Text style={[styles.text, styles.verseIndicatorText]}>Chorus:</Text>
+        <Text style={[styles.text, { fontSize: indicatorFontSize } ]}>Chorus:</Text>
         {currentTextBlock}
       </View>
     )
   }
 }
 
-const Lyrics = ({ lyrics }) => {
-  // const { value, increment, doubleAsync } = props;
-  // const { lyrics } = props;
-  // console.log(lyrics, 'chorus: ',lyrics.chorus);
+const Lyrics = ({ lyrics, fontSize }) => {
   return (
     <View style={styles.container}>
-      {lyrics.firstStanza ? getBlockUI(lyrics.firstStanza, lyrics.stanzaCnt, 1) : null}
-      {lyrics.chorus ? getBlockUI(lyrics.chorus) : null}
-      {lyrics.secondStanza ? getBlockUI(lyrics.secondStanza, lyrics.stanzaCnt, 2) : null}
-      {lyrics.thirdStanza ? getBlockUI(lyrics.thirdStanza, lyrics.stanzaCnt, 3) : null}
-      {lyrics.fourthStanza ? getBlockUI(lyrics.fourthStanza, lyrics.stanzaCnt, 4) : null}
-      {lyrics.fifthStanza ? getBlockUI(lyrics.fifthStanza, lyrics.stanzaCnt, 5) : null}
+      {lyrics.firstStanza ? getBlockUI(lyrics.firstStanza, lyrics.stanzaCnt, 1, fontSize) : null}
+      {lyrics.chorus ? getBlockUI(lyrics.chorus, 0, 0, fontSize) : null}
+      {lyrics.secondStanza ? getBlockUI(lyrics.secondStanza, lyrics.stanzaCnt, 2, fontSize) : null}
+      {lyrics.thirdStanza ? getBlockUI(lyrics.thirdStanza, lyrics.stanzaCnt, 3, fontSize) : null}
+      {lyrics.fourthStanza ? getBlockUI(lyrics.fourthStanza, lyrics.stanzaCnt, 4, fontSize) : null}
+      {lyrics.fifthStanza ? getBlockUI(lyrics.fifthStanza, lyrics.stanzaCnt, 5, fontSize) : null}
     </View>
   )
 }
 
 Lyrics.propTypes = {
-  lyrics: PropTypes.object.isRequired
+  lyrics: PropTypes.object.isRequired,
+  fontSize: PropTypes.number.isRequired
+}
+Lyrics.defaultProps = {
+  fontSize: 20
 }
 
 

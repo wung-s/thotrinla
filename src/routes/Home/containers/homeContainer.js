@@ -15,19 +15,19 @@ import ListRow from '../../../components/ListRow/ListRow'
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.fontSize = 16;
     this.state = {
       dataSource: null
     }
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.songInDB = realm.objects('Song').sorted('songNo');
+
     this.showLyrics = this.showLyrics.bind(this);
     this.loadData = this.loadData.bind(this);
   }
 
   showLyrics(songNo) {
-    // console.log('title: ', title);
     Actions.lyrics({ songNo: songNo })
-    // Actions.lyrics({ title: title, songNo: songNo })
   }
 
   loadData(songList) {
@@ -48,16 +48,17 @@ class Home extends Component {
   componentWillMount() {
     if (this.songInDB.length <= 0) {
       var song = require('../../../db/seed');
-      this.persistToDatabase(song);
+      this.persistToDatabase('Setting', [{ id: 1, fontSize: 16 }]);
+      this.persistToDatabase('Song', song);
       this.loadData(realm.objects('Song').sorted('songNo'));
     } else
       this.loadData(this.songInDB);
   }
 
-  persistToDatabase(data) {
+  persistToDatabase(table, data) {
     realm.write(() => {
       data.forEach(currentSong => {
-        realm.create('Song', currentSong);
+        realm.create(table, currentSong);
       });
     });
   }
@@ -70,6 +71,7 @@ class Home extends Component {
         <ListRow
           {...rowData}
           onSongSelect={this.showLyrics}
+          fontSize={this.fontSize}
           />
       )}
       />

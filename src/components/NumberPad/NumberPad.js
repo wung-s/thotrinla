@@ -5,15 +5,11 @@ const styles = StyleSheet.create({
   numPadWrapper: {
     backgroundColor: 'white',
     padding: 5,
-    // borderWidth: 2,
-    // borderColor: 'black'
   },
   numPadRow: {
     flexDirection: 'row',
     borderColor: 'transparent',
-    justifyContent: 'space-between',
-    // alignItems: 'center'
-    // borderBottomWidth: 5
+    justifyContent: 'space-between'
   },
   numPadElem: {
     width: 80,
@@ -23,10 +19,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'powderblue'
   },
   numText: {
-    color: 'white', fontSize: 40, fontWeight: 'bold'
+    color: 'white',
+    fontSize: 40,
+    fontWeight: 'bold'
   },
   text: {
-    color: 'white', fontSize: 22, fontWeight:'bold'
+    color: 'white',
+    fontSize: 22,
+    fontWeight:'bold'
   },
   welcome: {
     fontSize: 20,

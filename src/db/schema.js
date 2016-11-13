@@ -17,6 +17,7 @@ Song.schema = {
     chorus: { type: 'string', default: '' }
   }
 };
+
 class Favourite extends Realm.Object { }
 Favourite.schema = {
   name: 'Favourite',
@@ -24,6 +25,16 @@ Favourite.schema = {
   properties: {
     songNo: 'int'
   }
+};
+
+class Setting extends Realm.Object { }
+Setting.schema = {
+  name: 'Setting',
+  primaryKey: 'id',
+  properties: {
+    id: 'int',
+    fontSize: { type: 'int', default: 16 }
+  }
 }
 
-export default new Realm({ schema: [Song, Favourite] });
+export default new Realm({ schema: [Song, Favourite, Setting] });
