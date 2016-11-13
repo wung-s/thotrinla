@@ -15,7 +15,7 @@ import ListRow from '../../../components/ListRow/ListRow'
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.fontSize = 16;
+    this.fontSize = 20;
     this.state = {
       dataSource: null
     }
