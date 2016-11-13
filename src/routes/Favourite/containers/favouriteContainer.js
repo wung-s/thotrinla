@@ -19,9 +19,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    fontSize: 30
-  },
   container: {
     flex: 1,
     paddingHorizontal: 3

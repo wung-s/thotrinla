@@ -229,7 +229,7 @@ class LyricsContainer extends Component {
   }
 
 
-  getActionButton() {
+  renderActionButton() {
     if (this.state.scrollDirection === SCROLLUP) {
       return (
         <ActionButton buttonColor="rgba(231,76,60,1)">
@@ -255,7 +255,7 @@ class LyricsContainer extends Component {
         <ScrollView onScroll={this.handleScroll}>
           <Lyrics lyrics={this.state.song} />
         </ScrollView >
-        {this.getActionButton()}
+        {this.renderActionButton()}
         <Modal isOpen={this.state.isOpen} onClosed={this.closeModal5} style={[styles.modal, styles.modal4]} position={"center"} >
           <NumberPad
             searchKey={this.state.searchKey}

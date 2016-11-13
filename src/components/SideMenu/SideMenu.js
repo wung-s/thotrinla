@@ -1,6 +1,14 @@
 import React, { PropTypes } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Image
+} from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const contextTypes = {
   drawer: React.PropTypes.object
@@ -16,31 +24,42 @@ const SideMenu = (props, context) => {
   const drawer = context.drawer;
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.sideMenuWrapper}>
       <View style={styles.logoWrapper}>
         <Image style={styles.homeImage} source={require('../../assets/images/4C_3.jpg')} />
       </View>
       <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.home() } } >
-        <Text style={styles.text}>
-          Home
-        </Text>
+        <View style={styles.sideMenuItemWrapper}>
+          <Icon name="home" style={styles.sideMenuIcon} />
+          <Text style={[styles.text, styles.sideMenuText]} >
+            Home
+          </Text>
+        </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.preface() } }>
-        <Text style={styles.text}>
-          Preface
-        </Text>
+      <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.preface() } } >
+        <View style={styles.sideMenuItemWrapper}>
+          <Icon name="label" style={styles.sideMenuIcon} />
+          <Text style={[styles.text, styles.sideMenuText]} >
+            Preface
+          </Text>
+        </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.favourite() } }>
-        <Text style={styles.text}>
-          Favourite
-        </Text>
+      <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.favourite() } } >
+        <View style={styles.sideMenuItemWrapper}>
+          <Icon name="favorite" style={styles.sideMenuIcon} />
+          <Text style={[styles.text, styles.sideMenuText]} >
+            Favourite
+          </Text>
+        </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.about() } }>
-        <Text style={styles.text}>
-          About
-        </Text>
+      <TouchableOpacity style={styles.item} onPress={() => { drawer.close(); Actions.about() } } >
+        <View style={styles.sideMenuItemWrapper}>
+          <Icon name="info" style={styles.sideMenuIcon} />
+          <Text style={[styles.text, styles.sideMenuText]} >
+            About
+          </Text>
+        </View>
       </TouchableOpacity>
-
     </ScrollView>
   )
 }
@@ -50,30 +69,45 @@ SideMenu.propTypes = propTypes;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 20,
-    textAlign: 'center',
     color: 'white'
   },
-  item: {
-    backgroundColor: '#1abc9c',
-    minHeight: 55,
-    borderColor: 'rgb(213, 213, 213)',
-    borderTopWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 2
-
+  sideMenuWrapper: {
+    backgroundColor: '#135352'
   },
   logoWrapper: {
-    padding: 10,
-    // justifyContent: 'center'
-    // width: 280,
-    // height: 150,
+    paddingVertical: 10,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   homeImage: {
     width: 280,
     height: 150,
     resizeMode: 'contain'
+  },
+  sideMenuItemWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 5
+  },
+  item: {
+    minHeight: 50,
+    borderColor: 'grey',
+    borderBottomWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 1
+  },
+  sideMenuIcon: {
+    fontSize: 25,
+    color: 'white',
+    flex: .2
+  },
+  sideMenuText: {
+    flex: .8,
+    fontSize: 20,
+    color: 'white'
   }
 })
 

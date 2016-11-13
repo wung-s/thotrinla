@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   text: {
-    fontSize: 30,
+    fontSize: 16,
     textAlign: 'center',
     margin: 20,
   }
@@ -24,8 +24,6 @@ const styles = StyleSheet.create({
 class AboutContainer extends Component {
   constructor(props) {
     super(props);
-    // console.log('About constructor....');
-
   }
 
   render() {
