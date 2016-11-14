@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, StyleSheet, View } from 'react-native'
-import { Actions, Scene, Modal } from 'react-native-router-flux'
+import { Actions, Scene, Modal, ActionConst } from 'react-native-router-flux'
 import Routes from '../routes/index'
 
 import NavigationDrawer from '../components/NavigationDrawer/NavigationDrawer'
@@ -82,7 +82,7 @@ const scenes = Actions.create(
                         // rightTitle='Search'
                         // navBar={renderCustomNavBar()}
                         // hideNavBar={true}
-                        initial={true}
+                        // initial={true}
                         >
                         <Scene
                             key={Routes.indexRoute.path}
@@ -95,16 +95,18 @@ const scenes = Actions.create(
                 </Scene>
             </Scene>
             {/*<Scene
-                key="searchModal"
-                direction="vertical"
-                component={SearchContainer}
-                title="Search"
-                titleStyle={styles.titleTextStyle}
-                icon={TabIcon}
-                backButtonImage={require('../assets/images/left-arrow-key-white.png')}
-                // hideNavBar
+                key="setup"
+                // direction="vertical"
+                component={SetUpContainer}
+                // type={ActionConst.REPLACE}
+                // title="Search"
+                // titleStyle={styles.titleTextStyle}
+                // icon={TabIcon}
+                initial
+                // backButtonImage={require('../assets/images/left-arrow-key-white.png')}
+                hideNavBar
                 />
-            */}
+             */}
         </Scene>
     </Scene>
 )

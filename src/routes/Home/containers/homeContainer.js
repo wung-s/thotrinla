@@ -11,17 +11,17 @@ import { ListView } from 'realm/react-native'
 
 import realm from '../../../db/schema'
 import ListRow from '../../../components/ListRow/ListRow'
+import Loading from '../../../components/Loading'
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.fontSize = 20;
-    this.state = {
-      dataSource: null
-    }
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.state = {
+      dataSource: this.ds.cloneWithRows([]),
+      isSettingDB: true
+    }
     this.songInDB = realm.objects('Song').sorted('songNo');
-
     this.showLyrics = this.showLyrics.bind(this);
     this.loadData = this.loadData.bind(this);
   }
@@ -31,9 +31,11 @@ class Home extends Component {
   }
 
   loadData(songList) {
-    this.state = {
+    // console.log('no of songs: ', songList.length);
+    this.setState({
       dataSource: this.ds.cloneWithRows(songList)
-    };
+    });
+    this.setState({isSettingDB: false});
   }
 
   // renderSeperator(sectionID, rowID, adjacentRowHighlighted) {
@@ -47,12 +49,14 @@ class Home extends Component {
 
   componentWillMount() {
     if (this.songInDB.length <= 0) {
+      this.setState({isSettingDB: true});
       var song = require('../../../db/seed');
-      this.persistToDatabase('Setting', [{ id: 1, fontSize: 16 }]);
+      this.persistToDatabase('Setting', [{ id: 1, fontSize: 20 }]);
       this.persistToDatabase('Song', song);
       this.loadData(realm.objects('Song').sorted('songNo'));
-    } else
+    } else {
       this.loadData(this.songInDB);
+    }
   }
 
   persistToDatabase(table, data) {
@@ -64,6 +68,7 @@ class Home extends Component {
   }
 
   renderSongList() {
+
     return (<ListView
       dataSource={this.state.dataSource}
       // renderSeperator={this.renderSeperator}
@@ -71,7 +76,7 @@ class Home extends Component {
         <ListRow
           {...rowData}
           onSongSelect={this.showLyrics}
-          fontSize={this.fontSize}
+          fontSize={16}
           />
       )}
       />
@@ -79,11 +84,18 @@ class Home extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        {this.renderSongList()}
-      </View>
-    )
+    if(this.state.isSettingDB) {
+      return(
+        <Loading />
+      )
+    }else {
+      return (
+        <View style={styles.container}>
+          {this.renderSongList()}
+        </View>
+      )
+    }
+
   }
 }
 
@@ -100,9 +112,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     height: 22,
     color: 'white',
+  },
+  homeImage: {
+    width: 280,
+    height: 150,
+    resizeMode: 'contain'
   }
 })
-
-
 
 export default Home
