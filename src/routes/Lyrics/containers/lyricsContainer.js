@@ -277,7 +277,7 @@ class LyricsContainer extends Component {
           <ActionButton.Item buttonColor='powderblue' title="Favourite" onPress={this.handleAddFavourite}>
             <Icon name="favorite-border" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="Settings" onPress={this.handleOpenSetting}>
+          <ActionButton.Item buttonColor='grey' title="Settings" onPress={this.handleOpenSetting}>
             <Icon name="settings" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>

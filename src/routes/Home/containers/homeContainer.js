@@ -49,7 +49,7 @@ class Home extends Component {
 
   componentWillMount() {
     if (this.songInDB.length <= 0) {
-      this.setState({isSettingDB: true});
+      // this.setState({isSettingDB: true});
       var song = require('../../../db/seed');
       this.persistToDatabase('Setting', [{ id: 1, fontSize: 20 }]);
       this.persistToDatabase('Song', song);
